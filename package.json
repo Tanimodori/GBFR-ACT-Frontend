@@ -31,6 +31,7 @@
     "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.184",
     "@types/node": "20.11.19",
     "@typescript-eslint/eslint-plugin": "7.0.2",
     "@vitejs/plugin-vue": "5.0.4",
@@ -46,6 +47,7 @@
     "simple-git-hooks": "2.9.0",
     "typescript": "5.3.3",
     "unplugin-auto-expose": "0.3.0",
+    "unplugin-icons": "^0.18.5",
     "vite": "5.1.3",
     "vitest": "1.3.0",
     "vue": "3.4.15",
