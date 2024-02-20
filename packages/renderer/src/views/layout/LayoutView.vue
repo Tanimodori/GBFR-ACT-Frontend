@@ -47,8 +47,9 @@
         </a-button>
       </div>
     </a-layout-header>
-    <a-layout-content> </a-layout-content>
-    <a-layout-footer> </a-layout-footer>
+    <a-layout-content class="content">
+      <router-view />
+    </a-layout-content>
   </a-layout>
 </template>
 
@@ -111,6 +112,11 @@ const onClose = () => {
 
 .buttons svg.anticon {
   color: white;
+}
+
+.content {
+  height: calc(100vh - 32px);
+  background-color: white;
 }
 </style>
 

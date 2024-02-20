@@ -7,6 +7,7 @@ async function createWindow() {
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
     frame: false, // Hide the window frame.
+    transparent: true, // Make the window transparent.
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
