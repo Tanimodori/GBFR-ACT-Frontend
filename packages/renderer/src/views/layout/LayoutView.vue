@@ -32,20 +32,22 @@ import {ref} from 'vue';
 const selectedKeys = ref<string[]>(['logs']);
 </script>
 
-<style scoped>
-.layout .logo {
-  float: left;
-  width: 32px;
-  height: 32px;
-}
+<style scoped lang="less">
+.layout {
+  .logo {
+    float: left;
+    width: 32px;
+    height: 32px;
 
-.layout .logo svg.anticon {
-  color: white;
-}
+    svg.anticon {
+      color: white;
+    }
+  }
 
-.layout :deep(header) {
-  height: 32px;
-  line-height: 32px;
-  padding-inline: 0px;
+  :deep(header) {
+    height: 32px;
+    line-height: 32px;
+    padding-inline: 0px;
+  }
 }
 </style>
