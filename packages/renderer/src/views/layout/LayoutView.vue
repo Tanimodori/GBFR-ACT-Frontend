@@ -6,7 +6,6 @@
       </div>
       <a-menu
         v-model:selectedKeys="selectedKeys"
-        class="menu"
         theme="dark"
         mode="horizontal"
       >
@@ -19,6 +18,7 @@
           <span>{{ $t('menu.settings') }}</span>
         </a-menu-item>
       </a-menu>
+      <div class="draggable"></div>
       <div class="buttons">
         <a-button
           type="text"
@@ -104,8 +104,9 @@ const onClose = () => {
   }
 }
 
-.menu {
+.draggable {
   flex: 1;
+  -webkit-app-region: drag;
 }
 
 .buttons svg.anticon {

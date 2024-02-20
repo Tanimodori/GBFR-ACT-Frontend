@@ -6,6 +6,7 @@ import useWindow from './libs/windowOps';
 async function createWindow() {
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
+    frame: false, // Hide the window frame.
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
