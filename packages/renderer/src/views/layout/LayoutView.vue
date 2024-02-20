@@ -38,6 +38,7 @@ const selectedKeys = ref<string[]>(['logs']);
     float: left;
     width: 32px;
     height: 32px;
+    background: rgba(0, 0, 0);
 
     svg.anticon {
       color: white;
