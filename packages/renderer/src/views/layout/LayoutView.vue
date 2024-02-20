@@ -11,11 +11,11 @@
       >
         <a-menu-item key="logs">
           <line-chart-outlined class="anticon" />
-          <span>Logs</span>
+          <span>{{ $t('menu.logs') }}</span>
         </a-menu-item>
         <a-menu-item key="Settings">
           <setting-outlined class="anticon" />
-          <span>Settings</span>
+          <span>{{ $t('menu.settings') }}</span>
         </a-menu-item>
       </a-menu>
     </a-layout-header>
@@ -52,3 +52,5 @@ const selectedKeys = ref<string[]>(['logs']);
   }
 }
 </style>
+
+<i18n lang="json"></i18n>

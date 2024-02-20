@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue';
 import {renderer} from 'unplugin-auto-expose';
 import {join} from 'node:path';
 import Icons from 'unplugin-icons/vite';
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -20,6 +21,7 @@ const config = {
   resolve: {
     alias: {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',
+      'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js',
     },
   },
   base: '',
@@ -48,6 +50,10 @@ const config = {
       preloadEntry: join(PACKAGE_ROOT, '../preload/src/index.ts'),
     }),
     Icons(),
+    VueI18nPlugin({
+      runtimeOnly: true,
+      include: join(PACKAGE_ROOT, './src/locales/**.json'),
+    }),
   ],
 };
 
