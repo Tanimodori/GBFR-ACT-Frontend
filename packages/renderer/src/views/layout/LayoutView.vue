@@ -1,11 +1,12 @@
 <template>
-  <a-layout class="layout">
-    <a-layout-header>
+  <a-layout>
+    <a-layout-header class="header">
       <div class="logo">
         <orb-wand-icon class="anticon" />
       </div>
       <a-menu
         v-model:selectedKeys="selectedKeys"
+        class="menu"
         theme="dark"
         mode="horizontal"
       >
@@ -18,6 +19,33 @@
           <span>{{ $t('menu.settings') }}</span>
         </a-menu-item>
       </a-menu>
+      <div class="buttons">
+        <a-button
+          type="text"
+          @click="onMinimize"
+        >
+          <minimize-icon class="anticon" />
+        </a-button>
+        <a-button
+          type="text"
+          @click="onMaximize"
+        >
+          <restore-icon
+            v-if="isMaximized"
+            class="anticon"
+          />
+          <maximize-icon
+            v-else
+            class="anticon"
+          />
+        </a-button>
+        <a-button
+          type="text"
+          @click="onClose"
+        >
+          <close-icon class="anticon" />
+        </a-button>
+      </div>
     </a-layout-header>
     <a-layout-content> </a-layout-content>
     <a-layout-footer> </a-layout-footer>
@@ -28,28 +56,60 @@
 import OrbWandIcon from '~icons/game-icons/orb-wand';
 import LineChartOutlined from '~icons/ant-design/line-chart-outlined';
 import SettingOutlined from '~icons/ant-design/setting-outlined';
+import MinimizeIcon from '~icons/mdi/window-minimize';
+import MaximizeIcon from '~icons/mdi/window-maximize';
+import RestoreIcon from '~icons/mdi/window-restore';
+import CloseIcon from '~icons/mdi/close';
 import {ref} from 'vue';
+import {windowOps} from '#preload';
+import {onMounted} from 'vue';
 const selectedKeys = ref<string[]>(['logs']);
+
+const onMinimize = () => {
+  windowOps.minimize();
+};
+
+const isMaximized = ref(false);
+
+onMounted(() => {
+  isMaximized.value = windowOps.isMaximized();
+});
+
+const onMaximize = () => {
+  isMaximized.value = !isMaximized.value;
+  windowOps.maximize();
+};
+
+const onClose = () => {
+  windowOps.close();
+};
 </script>
 
 <style scoped lang="less">
-.layout {
-  .logo {
-    float: left;
-    width: 32px;
-    height: 32px;
-    background: rgba(0, 0, 0);
+.header {
+  height: 32px;
+  line-height: 32px;
+  padding-inline: 0px;
 
-    svg.anticon {
-      color: white;
-    }
-  }
+  display: flex;
+}
 
-  :deep(header) {
-    height: 32px;
-    line-height: 32px;
-    padding-inline: 0px;
+.logo {
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0);
+
+  svg.anticon {
+    color: white;
   }
+}
+
+.menu {
+  flex: 1;
+}
+
+.buttons svg.anticon {
+  color: white;
 }
 </style>
 

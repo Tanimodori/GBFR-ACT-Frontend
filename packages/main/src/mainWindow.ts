@@ -1,6 +1,7 @@
 import {app, BrowserWindow} from 'electron';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import useWindow from './libs/windowOps';
 
 async function createWindow() {
   const browserWindow = new BrowserWindow({
@@ -29,6 +30,8 @@ async function createWindow() {
       browserWindow?.webContents.openDevTools();
     }
   });
+
+  useWindow(browserWindow);
 
   /**
    * Load the main page of the main window.
