@@ -8,6 +8,7 @@
         v-model:selectedKeys="selectedKeys"
         theme="dark"
         mode="horizontal"
+        class="menu"
       >
         <a-menu-item key="logs">
           <line-chart-outlined class="anticon" />
@@ -105,6 +106,10 @@ const onClose = () => {
   }
 }
 
+.menu {
+  user-select: none;
+}
+
 .draggable {
   flex: 1;
   -webkit-app-region: drag;
@@ -117,6 +122,7 @@ const onClose = () => {
 .content {
   height: calc(100vh - 32px);
   background-color: white;
+  border: 1px solid #d9d9d9;
 }
 </style>
 
