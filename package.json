@@ -34,6 +34,7 @@
     "@iconify/json": "^2.2.184",
     "@intlify/unplugin-vue-i18n": "^2.0.0",
     "@types/node": "20.11.19",
+    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "7.0.2",
     "@vitejs/plugin-vue": "5.0.4",
     "@vue/test-utils": "2.4.4",
@@ -59,6 +60,7 @@
     "ant-design-vue": "^4.1.2",
     "electron-updater": "6.1.7",
     "pinia": "^2.1.7",
+    "uuid": "^9.0.1",
     "vue-i18n": "^9.9.1",
     "vue-router": "^4.2.5"
   }
