@@ -9,6 +9,7 @@
         theme="dark"
         mode="horizontal"
         class="menu"
+        @click="onMenuClick"
       >
         <a-menu-item key="logs">
           <line-chart-outlined class="anticon" />
@@ -65,7 +66,10 @@ import CloseIcon from '~icons/mdi/close';
 import {ref} from 'vue';
 import {windowOps} from '#preload';
 import {onMounted} from 'vue';
+import {useRouter} from 'vue-router';
 const selectedKeys = ref<string[]>(['logs']);
+
+const router = useRouter();
 
 const onMinimize = () => {
   windowOps.minimize();
@@ -84,6 +88,14 @@ const onMaximize = () => {
 
 const onClose = () => {
   windowOps.close();
+};
+
+const onMenuClick = ({key}: {key: string}) => {
+  if (key === 'logs') {
+    router.push('/logs/stats');
+  } else if (key === 'Settings') {
+    router.push('/logs/settings');
+  }
 };
 </script>
 
