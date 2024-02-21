@@ -16,6 +16,8 @@ export const useSettingsStore = defineStore('settings', {
       paddingright: 0,
       cols: [],
       shortcut: 'Ctrl+Shift+Num0',
+      port: 24399,
+      autoConnect: true,
     };
   },
 });

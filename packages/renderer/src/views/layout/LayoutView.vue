@@ -125,5 +125,3 @@ const onClose = () => {
   border: 1px solid #d9d9d9;
 }
 </style>
-
-<i18n lang="json"></i18n>

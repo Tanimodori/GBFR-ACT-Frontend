@@ -6,7 +6,20 @@
   </a-config-provider>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import {onMounted} from 'vue';
+import {useSettingsStore} from './store/settings';
+import {useRecordStore} from './store/record';
+
+const settingsStore = useSettingsStore();
+const recordStore = useRecordStore();
+
+onMounted(() => {
+  if (settingsStore.autoConnect) {
+    recordStore.connect();
+  }
+});
+</script>
 
 <style>
 body {

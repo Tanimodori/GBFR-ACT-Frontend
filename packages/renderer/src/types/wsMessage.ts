@@ -1,8 +1,8 @@
-export type EnterAreaMessage = {
+export type EnterAreaMessageRaw = {
   type: 'enter_area';
 };
 
-export type DamageMessage = {
+export type DamageMessageRaw = {
   type: 'damage';
   data: {
     source: [string, number, number, number];
@@ -12,5 +12,16 @@ export type DamageMessage = {
     flags: number;
   };
 };
+
+export type WsMessageRaw = EnterAreaMessageRaw | DamageMessageRaw;
+
+export type WsMessageTimestamp = {
+  timestamp: number;
+  message: WsMessageRaw;
+};
+
+export type EnterAreaMessage = EnterAreaMessageRaw & WsMessageTimestamp;
+
+export type DamageMessage = DamageMessageRaw & WsMessageTimestamp;
 
 export type WsMessage = EnterAreaMessage | DamageMessage;
