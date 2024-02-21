@@ -17,7 +17,6 @@ export type WsMessageRaw = EnterAreaMessageRaw | DamageMessageRaw;
 
 export type WsMessageTimestamp = {
   timestamp: number;
-  message: WsMessageRaw;
 };
 
 export type EnterAreaMessage = EnterAreaMessageRaw & WsMessageTimestamp;
