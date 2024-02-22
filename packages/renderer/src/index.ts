@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import { ConfigProvider, App as AppComponent, Layout, Menu, Button, Tabs } from 'ant-design-vue';
+import { ConfigProvider, App as AppComponent, Layout, Menu, Button, Tabs, Table } from 'ant-design-vue';
 import { createPinia } from 'pinia';
 import App from '@/App.vue';
 import router from '@/router';
@@ -19,5 +19,6 @@ app.use(Layout);
 app.use(Menu);
 app.use(Button);
 app.use(Tabs);
+app.use(Table);
 
 app.mount('#app');

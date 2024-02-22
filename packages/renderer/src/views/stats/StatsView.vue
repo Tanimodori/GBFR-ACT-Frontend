@@ -11,7 +11,7 @@
       :key="recordStore.records[i - 1].id"
       :tab="recordStore.records[i - 1].id"
     >
-      {{ recordStore.records[i - 1].id }}
+      <StatsPane :record="recordStore.records[i - 1]" />
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -19,6 +19,7 @@
 <script lang="ts" setup>
   import { useRecordStore } from '@/store/record';
   import { ref } from 'vue';
+  import StatsPane from './StatsPane.vue';
   const activeKey = ref(1);
 
   const recordStore = useRecordStore();
