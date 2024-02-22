@@ -15,3 +15,7 @@ export const isMaximized = (): boolean => {
 export const close = () => {
   ipcRenderer.send('close');
 };
+
+export const setAlwaysOnTop = (value: boolean) => {
+  ipcRenderer.send('setAlwaysOnTop', value);
+};

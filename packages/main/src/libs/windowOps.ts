@@ -21,6 +21,10 @@ const useWindow = (browserWindow: BrowserWindow) => {
   ipcMain.on('close', () => {
     browserWindow.close();
   });
+
+  ipcMain.on('setAlwaysOnTop', (_event, value) => {
+    browserWindow.setAlwaysOnTop(value);
+  });
 };
 
 export default useWindow;
