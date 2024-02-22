@@ -21,6 +21,7 @@ export interface PlayerState {
   totalDamage: number[];
   damageInSecond: number[];
   damageInMinute: number[];
+  damageInMinutePerSecond: number[];
   targets: PlayerTargetState[];
   actions: PlayerActionState[];
 }
@@ -132,6 +133,7 @@ export const useRecordStore = defineStore('record', {
             totalDamage: [0],
             damageInSecond: [0],
             damageInMinute: [0],
+            damageInMinutePerSecond: [0],
             targets: [],
             actions: [],
           };
@@ -161,6 +163,10 @@ export const useRecordStore = defineStore('record', {
               oldTotalDamage = player.totalDamage[frameIdx - 60];
             }
             player.damageInMinute[frameIdx] = player.totalDamage[frameIdx] - oldTotalDamage;
+
+            // damageInMinutePerSecond
+            const frames = Math.min(frameIdx, 60);
+            player.damageInMinutePerSecond[frameIdx] = Math.floor(player.damageInMinute[frameIdx] / frames);
           }
         }
 
