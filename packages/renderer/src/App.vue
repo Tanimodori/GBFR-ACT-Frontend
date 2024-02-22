@@ -10,14 +10,40 @@
   import { onMounted } from 'vue';
   import { useSettingsStore } from './store/settings';
   import { useRecordStore } from './store/record';
+  import { globalShortcut } from '#preload';
+  import { useRouter } from 'vue-router';
+  import { onUnmounted } from 'vue';
 
   const settingsStore = useSettingsStore();
   const recordStore = useRecordStore();
+  const router = useRouter();
 
   onMounted(() => {
     if (settingsStore.connection.startup) {
       recordStore.connect();
     }
+  });
+
+  const toggleRoute = () => {
+    const route = router.currentRoute.value;
+    console.log(route);
+    if (route.path === '/damage') {
+      router.push('/logs/stats');
+    } else {
+      router.push('/damage');
+    }
+  };
+
+  onMounted(() => {
+    globalShortcut.unregisterAllGlobalShortcuts();
+    const shortcut = settingsStore.shortcut.key;
+    if (settingsStore.shortcut.enabled && shortcut) {
+      globalShortcut.registerGlobalShortcut(shortcut, toggleRoute);
+    }
+  });
+
+  onUnmounted(() => {
+    globalShortcut.unregisterAllGlobalShortcuts();
   });
 </script>
 
