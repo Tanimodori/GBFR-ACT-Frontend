@@ -15,7 +15,7 @@
   const recordStore = useRecordStore();
 
   onMounted(() => {
-    if (settingsStore.autoConnect) {
+    if (settingsStore.connection.startup) {
       recordStore.connect();
     }
   });

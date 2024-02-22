@@ -19,7 +19,6 @@
   }>();
 
   const validPlayers = computed(() => {
-    console.log(props.record.players);
     return props.record.players.filter(player => player);
   });
 </script>

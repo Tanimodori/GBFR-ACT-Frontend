@@ -45,8 +45,9 @@ export const useRecordStore = defineStore('record', () => {
       ws.close();
     }
     const settingsStore = useSettingsStore();
-    const port = settingsStore.port;
-    ws = new WebSocket(`ws://localhost:${port}`);
+    const host = settingsStore.connection.host;
+    const port = settingsStore.connection.port;
+    ws = new WebSocket(`ws://${host}:${port}`);
 
     ws.onmessage = (event: MessageEvent<string>) => {
       if (event.type === 'message') {
