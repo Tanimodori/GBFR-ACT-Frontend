@@ -145,7 +145,7 @@ export const useRecordStore = defineStore('record', {
           }
           for (let frameIdx = player.totalDamage.length; frameIdx <= lastFrame; frameIdx++) {
             let damageDelta = damage;
-            if (frameIdx === frame || partyIdx !== sourcePartyIdx) {
+            if (frameIdx !== frame || partyIdx !== sourcePartyIdx) {
               damageDelta = 0;
             }
 
