@@ -23,8 +23,6 @@
   const activeKey = ref(1);
 
   const recordStore = useRecordStore();
-
-  console.log(recordStore.records);
 </script>
 
 <style scoped lang="less">
