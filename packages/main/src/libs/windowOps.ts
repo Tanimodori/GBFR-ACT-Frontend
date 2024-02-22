@@ -43,7 +43,6 @@ const useWindow = (browserWindow: BrowserWindow) => {
   });
 
   ipcMain.on('setBounds', (_event, ...values: Parameters<BrowserWindow['setBounds']>) => {
-    console.log('setBounds', values);
     browserWindow.setBounds(...values);
   });
 };
