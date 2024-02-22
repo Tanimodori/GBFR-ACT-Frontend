@@ -10,20 +10,23 @@
   import { onMounted } from 'vue';
   import { useSettingsStore } from './store/settings';
   import { useRecordStore } from './store/record';
-  import { globalShortcut } from '#preload';
+  import { globalShortcut, windowOps } from '#preload';
   import { useRouter } from 'vue-router';
   import { onUnmounted } from 'vue';
+  import type { Rectangle } from 'electron';
 
   const settingsStore = useSettingsStore();
   const recordStore = useRecordStore();
   const router = useRouter();
 
+  // Auto connect
   onMounted(() => {
     if (settingsStore.connection.startup) {
       recordStore.connect();
     }
   });
 
+  // Global shortcut
   const toggleRoute = () => {
     if (!settingsStore.shortcut.enabled) {
       return;
@@ -46,6 +49,26 @@
 
   onUnmounted(() => {
     globalShortcut.unregisterAllGlobalShortcuts();
+  });
+
+  // Resize
+  const onResizeOrMove = (newBounds: Rectangle) => {
+    const route = router.currentRoute.value;
+    if (route.path === '/damage') return;
+    settingsStore.mainWindowBound.x = newBounds.x;
+    settingsStore.mainWindowBound.y = newBounds.y;
+    settingsStore.mainWindowBound.width = newBounds.width;
+    settingsStore.mainWindowBound.height = newBounds.height;
+  };
+
+  onMounted(() => {
+    windowOps.addEventListener('will-resize', onResizeOrMove);
+    windowOps.addEventListener('will-move', onResizeOrMove);
+  });
+
+  onUnmounted(() => {
+    windowOps.removeEventListener('will-resize', onResizeOrMove);
+    windowOps.removeEventListener('will-move', onResizeOrMove);
   });
 </script>
 

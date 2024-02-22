@@ -33,6 +33,14 @@ const useWindow = (browserWindow: BrowserWindow) => {
   ipcMain.on('setFocusable', (_event, value) => {
     browserWindow.setFocusable(value);
   });
+
+  browserWindow.on('will-resize', (event, newBounds) => {
+    browserWindow.webContents.send('will-resize', newBounds);
+  });
+
+  browserWindow.on('will-move', (event, newBounds) => {
+    browserWindow.webContents.send('will-move', newBounds);
+  });
 };
 
 export default useWindow;

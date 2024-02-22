@@ -26,11 +26,16 @@ export const useSettingsStore = defineStore(
       order: [],
     });
 
-    const windowStyle = ref({
+    const mainWindowBound = ref({
       x: 0,
       y: 0,
-      width: 700,
-      height: 500,
+      width: 800,
+      height: 600,
+    });
+
+    const damageWindowBound = ref({
+      x: 0,
+      y: 0,
     });
 
     const shortcut = ref({
@@ -42,7 +47,8 @@ export const useSettingsStore = defineStore(
       connection,
       damageStyle,
       damageCols,
-      windowStyle,
+      mainWindowBound,
+      damageWindowBound,
       shortcut,
     };
   },
