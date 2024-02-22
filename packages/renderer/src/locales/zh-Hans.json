@@ -1,6 +1,7 @@
 {
   "menu": {
     "logs": "记录",
-    "settings": "设置"
+    "settings": "设置",
+    "run": "运行"
   }
 }

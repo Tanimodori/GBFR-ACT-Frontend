@@ -1,6 +1,7 @@
 {
   "menu": {
     "logs": "Logs",
-    "settings": "Settings"
+    "settings": "Settings",
+    "run": "Run"
   }
 }

@@ -11,16 +11,19 @@
         class="menu"
         @click="onMenuClick"
       >
+        <a-menu-item key="run">
+          <play-circle-outlined class="anticon" />
+          <span>{{ $t('menu.run') }}</span>
+        </a-menu-item>
         <a-menu-item key="logs">
           <line-chart-outlined class="anticon" />
           <span>{{ $t('menu.logs') }}</span>
         </a-menu-item>
-        <a-menu-item key="Settings">
+        <a-menu-item key="settings">
           <setting-outlined class="anticon" />
           <span>{{ $t('menu.settings') }}</span>
         </a-menu-item>
       </a-menu>
-      <div class="draggable"></div>
       <div class="buttons">
         <a-button
           type="text"
@@ -57,6 +60,7 @@
 
 <script lang="ts" setup>
   import OrbWandIcon from '~icons/game-icons/orb-wand';
+  import PlayCircleOutlined from '~icons/ant-design/play-circle-outlined';
   import LineChartOutlined from '~icons/ant-design/line-chart-outlined';
   import SettingOutlined from '~icons/ant-design/setting-outlined';
   import MinimizeIcon from '~icons/mdi/window-minimize';
@@ -91,9 +95,11 @@
   };
 
   const onMenuClick = ({ key }: { key: string }) => {
-    if (key === 'logs') {
+    if (key === 'run') {
+      router.push('/damage');
+    } else if (key === 'logs') {
       router.push('/logs/stats');
-    } else if (key === 'Settings') {
+    } else if (key === 'settings') {
       router.push('/logs/settings');
     }
   };
@@ -120,11 +126,12 @@
 
   .menu {
     user-select: none;
-  }
-
-  .draggable {
-    flex: 1;
+    flex: auto;
     -webkit-app-region: drag;
+
+    :deep(li) {
+      -webkit-app-region: no-drag;
+    }
   }
 
   .buttons svg.anticon {
