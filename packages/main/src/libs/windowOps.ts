@@ -22,8 +22,16 @@ const useWindow = (browserWindow: BrowserWindow) => {
     browserWindow.close();
   });
 
-  ipcMain.on('setAlwaysOnTop', (_event, value) => {
-    browserWindow.setAlwaysOnTop(value);
+  ipcMain.on('setAlwaysOnTop', (_event, ...values: Parameters<BrowserWindow['setAlwaysOnTop']>) => {
+    browserWindow.setAlwaysOnTop(...values);
+  });
+
+  ipcMain.on('setIgnoreMouseEvents', (_event, ...values: Parameters<BrowserWindow['setIgnoreMouseEvents']>) => {
+    browserWindow.setIgnoreMouseEvents(...values);
+  });
+
+  ipcMain.on('setFocusable', (_event, value) => {
+    browserWindow.setFocusable(value);
   });
 };
 

@@ -25,8 +25,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // Always on top for damage view
   if (to.path === '/damage') {
-    windowOps.setAlwaysOnTop(true);
+    windowOps.setAlwaysOnTop(true, 'screen-saver', 1);
+    windowOps.setIgnoreMouseEvents(true);
   } else if (from.path === '/damage') {
+    windowOps.setIgnoreMouseEvents(false);
     windowOps.setAlwaysOnTop(false);
   }
 

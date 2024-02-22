@@ -1,3 +1,4 @@
+import type { BrowserWindow} from 'electron';
 import { ipcRenderer } from 'electron';
 
 export const minimize = () => {
@@ -16,6 +17,14 @@ export const close = () => {
   ipcRenderer.send('close');
 };
 
-export const setAlwaysOnTop = (value: boolean) => {
-  ipcRenderer.send('setAlwaysOnTop', value);
+export const setAlwaysOnTop = (...values: Parameters<BrowserWindow['setAlwaysOnTop']>) => {
+  ipcRenderer.send('setAlwaysOnTop', ...values);
+};
+
+export const setIgnoreMouseEvents = (...values: Parameters<BrowserWindow['setIgnoreMouseEvents']>) => {
+  ipcRenderer.send('setIgnoreMouseEvents', ...values);
+};
+
+export const setFocusable = (value: boolean) => {
+  ipcRenderer.send('setFocusable', value);
 };
