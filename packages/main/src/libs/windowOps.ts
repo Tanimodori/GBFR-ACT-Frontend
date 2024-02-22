@@ -41,6 +41,11 @@ const useWindow = (browserWindow: BrowserWindow) => {
   browserWindow.on('will-move', (event, newBounds) => {
     browserWindow.webContents.send('will-move', newBounds);
   });
+
+  ipcMain.on('setBounds', (_event, ...values: Parameters<BrowserWindow['setBounds']>) => {
+    console.log('setBounds', values);
+    browserWindow.setBounds(...values);
+  });
 };
 
 export default useWindow;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="damage-pane">
     <span
       v-for="player in validPlayers"
       :key="player.id"
@@ -24,9 +24,12 @@
 </script>
 
 <style scoped lang="less">
-  .damage-text {
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
+  .damage-pane {
+    width: max-content;
+    .damage-text {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
   }
 </style>

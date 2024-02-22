@@ -1,5 +1,6 @@
 import { type RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router';
 import { windowOps } from '#preload';
+import { useSettingsStore } from '@/store/settings';
 
 const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/logs/stats' },
@@ -23,13 +24,18 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const settingsStore = useSettingsStore();
   // Always on top for damage view
   if (to.path === '/damage') {
     windowOps.setAlwaysOnTop(true, 'screen-saver', 1);
     windowOps.setIgnoreMouseEvents(true);
+    const { x, y } = settingsStore.damageWindowBound;
+    windowOps.setBounds({ x, y });
   } else if (from.path === '/damage') {
     windowOps.setIgnoreMouseEvents(false);
     windowOps.setAlwaysOnTop(false);
+    const { x, y, width, height } = settingsStore.mainWindowBound;
+    windowOps.setBounds({ x, y, width, height });
   }
 
   next();

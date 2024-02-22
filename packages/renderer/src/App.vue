@@ -73,6 +73,12 @@
 </script>
 
 <style>
+  html {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   body {
     margin: 0;
   }

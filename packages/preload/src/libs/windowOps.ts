@@ -59,3 +59,7 @@ export const removeEventListener = (eventKey: WindowOpsEventKey, callback: Callb
     }
   }
 };
+
+export const setBounds = (...values: Parameters<BrowserWindow['setBounds']>) => {
+  ipcRenderer.send('setBounds', ...values);
+};

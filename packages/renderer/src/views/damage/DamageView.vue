@@ -1,14 +1,20 @@
 <template>
-  <DamagePane
-    v-if="activeRecord"
-    :record="activeRecord"
-  />
+  <div
+    ref="damagePaneElement"
+    class="damage-view"
+  >
+    <DamagePane
+      v-if="activeRecord"
+      :record="activeRecord"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
   import { useRecordStore } from '@/store/record';
-  import { computed } from 'vue';
+  import { computed, ref, watch } from 'vue';
   import DamagePane from './DamagePane.vue';
+  import { windowOps } from '#preload';
 
   const recordStore = useRecordStore();
   const activeRecord = computed(() => {
@@ -17,4 +23,23 @@
     }
     return undefined;
   });
+
+  const damagePaneElement = ref<HTMLElement | null>(null);
+  const onResize = () => {
+    if (!activeRecord.value || !damagePaneElement.value) {
+      return;
+    }
+    const rect = damagePaneElement.value.getBoundingClientRect();
+    windowOps.setBounds({
+      width: Math.ceil(rect.width),
+      height: Math.ceil(rect.height),
+    });
+  };
+  watch(damagePaneElement, onResize);
 </script>
+
+<style scoped lang="less">
+  .damage-view {
+    width: max-content;
+  }
+</style>
