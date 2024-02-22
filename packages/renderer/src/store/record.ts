@@ -144,14 +144,16 @@ export const useRecordStore = defineStore('record', {
             continue;
           }
           for (let frameIdx = player.totalDamage.length; frameIdx <= lastFrame; frameIdx++) {
+            let damageDelta = damage;
+            if (frameIdx === frame || partyIdx !== sourcePartyIdx) {
+              damageDelta = 0;
+            }
+
             // totalDamage
-            const totalDamageDelta = frameIdx === frame ? damage : 0;
-            player.totalDamage[frameIdx] = player.totalDamage[frameIdx - 1] + totalDamageDelta;
+            player.totalDamage[frameIdx] = player.totalDamage[frameIdx - 1] + damageDelta;
 
             // damageInSecond
-            const damageInSecondDelta = frameIdx === frame ? damage : 0;
-            player.damageInSecond[frameIdx] =
-              (player.damageInSecond[frameIdx] ?? 0) + damageInSecondDelta;
+            player.damageInSecond[frameIdx] = (player.damageInSecond[frameIdx] ?? 0) + damageDelta;
 
             // damageInMinute
             let oldTotalDamage = 0;
