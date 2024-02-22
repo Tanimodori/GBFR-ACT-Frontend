@@ -25,8 +25,10 @@
   });
 
   const toggleRoute = () => {
+    if (!settingsStore.shortcut.enabled) {
+      return;
+    }
     const route = router.currentRoute.value;
-    console.log(route);
     if (route.path === '/damage') {
       router.push('/logs/stats');
     } else {
