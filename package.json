@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "ant-design-vue": "^4.1.2",
+    "dayjs": "^1.11.10",
     "electron-updater": "6.1.7",
     "pinia": "^2.1.7",
     "uuid": "^9.0.1",
