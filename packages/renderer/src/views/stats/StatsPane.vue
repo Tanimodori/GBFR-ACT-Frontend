@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts" setup>
-import type {RecordState} from '@/store/record';
-import StatsTable from './StatsTable.vue';
+  import type { RecordState } from '@/store/record';
+  import StatsTable from './StatsTable.vue';
 
-const props = defineProps<{
-  record: RecordState;
-}>();
+  const props = defineProps<{
+    record: RecordState;
+  }>();
 </script>

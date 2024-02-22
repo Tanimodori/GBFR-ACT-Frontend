@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {versions} from '#preload';
+  import { versions } from '#preload';
 </script>
 
 <template>
@@ -16,15 +16,15 @@ import {versions} from '#preload';
 </template>
 
 <style scoped>
-table {
-  margin: auto;
-}
+  table {
+    margin: auto;
+  }
 
-th {
-  text-align: right;
-}
+  th {
+    text-align: right;
+  }
 
-td {
-  text-align: left;
-}
+  td {
+    text-align: left;
+  }
 </style>

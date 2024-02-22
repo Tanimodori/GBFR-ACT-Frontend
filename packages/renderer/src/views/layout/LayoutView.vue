@@ -56,84 +56,84 @@
 </template>
 
 <script lang="ts" setup>
-import OrbWandIcon from '~icons/game-icons/orb-wand';
-import LineChartOutlined from '~icons/ant-design/line-chart-outlined';
-import SettingOutlined from '~icons/ant-design/setting-outlined';
-import MinimizeIcon from '~icons/mdi/window-minimize';
-import MaximizeIcon from '~icons/mdi/window-maximize';
-import RestoreIcon from '~icons/mdi/window-restore';
-import CloseIcon from '~icons/mdi/close';
-import {ref} from 'vue';
-import {windowOps} from '#preload';
-import {onMounted} from 'vue';
-import {useRouter} from 'vue-router';
-const selectedKeys = ref<string[]>(['logs']);
+  import OrbWandIcon from '~icons/game-icons/orb-wand';
+  import LineChartOutlined from '~icons/ant-design/line-chart-outlined';
+  import SettingOutlined from '~icons/ant-design/setting-outlined';
+  import MinimizeIcon from '~icons/mdi/window-minimize';
+  import MaximizeIcon from '~icons/mdi/window-maximize';
+  import RestoreIcon from '~icons/mdi/window-restore';
+  import CloseIcon from '~icons/mdi/close';
+  import { ref } from 'vue';
+  import { windowOps } from '#preload';
+  import { onMounted } from 'vue';
+  import { useRouter } from 'vue-router';
+  const selectedKeys = ref<string[]>(['logs']);
 
-const router = useRouter();
+  const router = useRouter();
 
-const onMinimize = () => {
-  windowOps.minimize();
-};
+  const onMinimize = () => {
+    windowOps.minimize();
+  };
 
-const isMaximized = ref(false);
+  const isMaximized = ref(false);
 
-onMounted(() => {
-  isMaximized.value = windowOps.isMaximized();
-});
+  onMounted(() => {
+    isMaximized.value = windowOps.isMaximized();
+  });
 
-const onMaximize = () => {
-  isMaximized.value = !isMaximized.value;
-  windowOps.maximize();
-};
+  const onMaximize = () => {
+    isMaximized.value = !isMaximized.value;
+    windowOps.maximize();
+  };
 
-const onClose = () => {
-  windowOps.close();
-};
+  const onClose = () => {
+    windowOps.close();
+  };
 
-const onMenuClick = ({key}: {key: string}) => {
-  if (key === 'logs') {
-    router.push('/logs/stats');
-  } else if (key === 'Settings') {
-    router.push('/logs/settings');
-  }
-};
+  const onMenuClick = ({ key }: { key: string }) => {
+    if (key === 'logs') {
+      router.push('/logs/stats');
+    } else if (key === 'Settings') {
+      router.push('/logs/settings');
+    }
+  };
 </script>
 
 <style scoped lang="less">
-.header {
-  height: 32px;
-  line-height: 32px;
-  padding-inline: 0px;
+  .header {
+    height: 32px;
+    line-height: 32px;
+    padding-inline: 0px;
 
-  display: flex;
-}
+    display: flex;
+  }
 
-.logo {
-  width: 32px;
-  height: 32px;
-  background: rgba(0, 0, 0);
+  .logo {
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0);
 
-  svg.anticon {
+    svg.anticon {
+      color: white;
+    }
+  }
+
+  .menu {
+    user-select: none;
+  }
+
+  .draggable {
+    flex: 1;
+    -webkit-app-region: drag;
+  }
+
+  .buttons svg.anticon {
     color: white;
   }
-}
 
-.menu {
-  user-select: none;
-}
-
-.draggable {
-  flex: 1;
-  -webkit-app-region: drag;
-}
-
-.buttons svg.anticon {
-  color: white;
-}
-
-.content {
-  height: calc(100vh - 32px);
-  background-color: white;
-  border: 1px solid #d9d9d9;
-}
+  .content {
+    height: calc(100vh - 32px);
+    background-color: white;
+    border: 1px solid #d9d9d9;
+  }
 </style>

@@ -1,6 +1,6 @@
-import {app, BrowserWindow} from 'electron';
-import {join} from 'node:path';
-import {fileURLToPath} from 'node:url';
+import { app, BrowserWindow } from 'electron';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import useWindow from './libs/windowOps';
 
 async function createWindow() {
@@ -53,9 +53,7 @@ async function createWindow() {
      * @see https://github.com/nodejs/node/issues/12682
      * @see https://github.com/electron/electron/issues/6869
      */
-    await browserWindow.loadFile(
-      fileURLToPath(new URL('./../../renderer/dist/index.html', import.meta.url)),
-    );
+    await browserWindow.loadFile(fileURLToPath(new URL('./../../renderer/dist/index.html', import.meta.url)));
   }
 
   return browserWindow;

@@ -7,29 +7,29 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted} from 'vue';
-import {useSettingsStore} from './store/settings';
-import {useRecordStore} from './store/record';
+  import { onMounted } from 'vue';
+  import { useSettingsStore } from './store/settings';
+  import { useRecordStore } from './store/record';
 
-const settingsStore = useSettingsStore();
-const recordStore = useRecordStore();
+  const settingsStore = useSettingsStore();
+  const recordStore = useRecordStore();
 
-onMounted(() => {
-  if (settingsStore.autoConnect) {
-    recordStore.connect();
-  }
-});
+  onMounted(() => {
+    if (settingsStore.autoConnect) {
+      recordStore.connect();
+    }
+  });
 </script>
 
 <style>
-body {
-  margin: 0;
-}
+  body {
+    margin: 0;
+  }
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+  }
 </style>

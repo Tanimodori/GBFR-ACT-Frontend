@@ -1,4 +1,4 @@
-import {ipcRenderer} from 'electron';
+import { ipcRenderer } from 'electron';
 
 export const minimize = () => {
   ipcRenderer.send('minimize');

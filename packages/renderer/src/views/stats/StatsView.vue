@@ -17,17 +17,17 @@
 </template>
 
 <script lang="ts" setup>
-import {useRecordStore} from '@/store/record';
-import {ref} from 'vue';
-const activeKey = ref(1);
+  import { useRecordStore } from '@/store/record';
+  import { ref } from 'vue';
+  const activeKey = ref(1);
 
-const recordStore = useRecordStore();
+  const recordStore = useRecordStore();
 
-console.log(recordStore.records);
+  console.log(recordStore.records);
 </script>
 
 <style scoped lang="less">
-.tabLeft {
-  width: 10px;
-}
+  .tabLeft {
+    width: 10px;
+  }
 </style>

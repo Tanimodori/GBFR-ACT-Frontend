@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import {computed, ref} from 'vue';
-import {sha256sum} from '#preload';
+  import { computed, ref } from 'vue';
+  import { sha256sum } from '#preload';
 
-const rawString = ref('Hello World');
-const hashedString = computed(() => sha256sum(rawString.value));
+  const rawString = ref('Hello World');
+  const hashedString = computed(() => sha256sum(rawString.value));
 </script>
 
 <template>
@@ -39,15 +39,15 @@ const hashedString = computed(() => sha256sum(rawString.value));
 </template>
 
 <style scoped>
-table {
-  margin: auto;
-}
+  table {
+    margin: auto;
+  }
 
-th {
-  text-align: right;
-}
+  th {
+    text-align: right;
+  }
 
-td {
-  text-align: left;
-}
+  td {
+    text-align: left;
+  }
 </style>

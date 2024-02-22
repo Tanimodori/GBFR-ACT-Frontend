@@ -1,7 +1,7 @@
-import type {WsMessage, WsMessageRaw} from '@/types/wsMessage';
-import {defineStore} from 'pinia';
-import {useSettingsStore} from './settings';
-import {v4 as uuidv4} from 'uuid';
+import type { WsMessage, WsMessageRaw } from '@/types/wsMessage';
+import { defineStore } from 'pinia';
+import { useSettingsStore } from './settings';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface PlayerTargetState {
   id: number;
@@ -110,7 +110,7 @@ export const useRecordStore = defineStore('record', {
 
       // 2. Update players
       if (message.type === 'damage') {
-        const {source, target, damage, flags: _flags, action_id: actionId} = message.data;
+        const { source, target, damage, flags: _flags, action_id: actionId } = message.data;
         const [_sourceType, _sourceIdx, sourceId, sourcePartyIdx] = source;
         const [_targetType, _targetIdx, targetId, _targetPartyIdx] = target;
 

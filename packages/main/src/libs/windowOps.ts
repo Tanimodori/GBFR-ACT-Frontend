@@ -1,5 +1,5 @@
-import type {BrowserWindow} from 'electron';
-import { ipcMain} from 'electron';
+import type { BrowserWindow } from 'electron';
+import { ipcMain } from 'electron';
 
 const useWindow = (browserWindow: BrowserWindow) => {
   ipcMain.on('minimize', () => {

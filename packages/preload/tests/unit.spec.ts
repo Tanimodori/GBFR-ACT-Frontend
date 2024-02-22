@@ -1,6 +1,6 @@
-import {createHash} from 'crypto';
-import {expect, test, vi} from 'vitest';
-import {sha256sum, versions} from '../src';
+import { createHash } from 'crypto';
+import { expect, test, vi } from 'vitest';
+import { sha256sum, versions } from '../src';
 
 // TODO: Remove this workaround after unplugin-auto-expose will be fixed for ESM support
 vi.mock('electron', () => ({

@@ -1,5 +1,5 @@
 {
-  "printWidth": 100,
+  "printWidth": 120,
   "semi": true,
   "singleQuote": true,
   "overrides": [
@@ -11,11 +11,11 @@
     }
   ],
   "trailingComma": "all",
-  "bracketSpacing": false,
+  "bracketSpacing": true,
   "arrowParens": "avoid",
   "proseWrap": "never",
-  "htmlWhitespaceSensitivity": "strict",
-  "vueIndentScriptAndStyle": false,
+  "htmlWhitespaceSensitivity": "ignore",
+  "vueIndentScriptAndStyle": true,
   "endOfLine": "lf",
-  "singleAttributePerLine": true
+  "singleAttributePerLine": false
 }

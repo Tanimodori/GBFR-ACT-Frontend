@@ -1,13 +1,13 @@
-import type {ElectronApplication, JSHandle} from 'playwright';
-import {_electron as electron} from 'playwright';
-import {afterAll, beforeAll, expect, test} from 'vitest';
-import {createHash} from 'crypto';
-import type {BrowserWindow} from 'electron';
+import type { ElectronApplication, JSHandle } from 'playwright';
+import { _electron as electron } from 'playwright';
+import { afterAll, beforeAll, expect, test } from 'vitest';
+import { createHash } from 'crypto';
+import type { BrowserWindow } from 'electron';
 
 let electronApp: ElectronApplication;
 
 beforeAll(async () => {
-  electronApp = await electron.launch({args: ['.']});
+  electronApp = await electron.launch({ args: ['.'] });
 });
 
 afterAll(async () => {
@@ -21,7 +21,7 @@ test('Main window state', async () => {
   const window: JSHandle<BrowserWindow> = await electronApp.browserWindow(page);
   console.log('await electronApp.browserWindow(page)');
   const windowState = await window.evaluate(
-    (mainWindow): Promise<{isVisible: boolean; isDevToolsOpened: boolean; isCrashed: boolean}> => {
+    (mainWindow): Promise<{ isVisible: boolean; isDevToolsOpened: boolean; isCrashed: boolean }> => {
       const getState = () => ({
         isVisible: mainWindow.isVisible(),
         isDevToolsOpened: mainWindow.webContents.isDevToolsOpened(),
@@ -49,7 +49,7 @@ test('Main window state', async () => {
 
 test('Main window web content', async () => {
   const page = await electronApp.firstWindow();
-  const element = await page.$('#app', {strict: true});
+  const element = await page.$('#app', { strict: true });
   expect(element, 'Was unable to find the root element').toBeDefined();
   expect((await element.innerHTML()).trim(), 'Window content was empty').not.equal('');
 });
@@ -57,9 +57,7 @@ test('Main window web content', async () => {
 test('Preload versions', async () => {
   const page = await electronApp.firstWindow();
   const versionsElement = page.locator('#process-versions');
-  expect(await versionsElement.count(), 'expect find one element #process-versions').toStrictEqual(
-    1,
-  );
+  expect(await versionsElement.count(), 'expect find one element #process-versions').toStrictEqual(1);
 
   /**
    * In this test we check only text value and don't care about formatting. That's why here we remove any space symbols
@@ -68,9 +66,7 @@ test('Preload versions', async () => {
   const expectedVersions = await electronApp.evaluate(() => process.versions);
 
   for (const expectedVersionsKey in expectedVersions) {
-    expect(renderedVersions).include(
-      `${expectedVersionsKey}:v${expectedVersions[expectedVersionsKey]}`,
-    );
+    expect(renderedVersions).include(`${expectedVersionsKey}:v${expectedVersions[expectedVersionsKey]}`);
   }
 });
 
@@ -81,16 +77,10 @@ test('Preload nodeCrypto', async () => {
   const testString = Math.random().toString(36).slice(2, 7);
 
   const rawInput = page.locator('input#reactive-hash-raw-value');
-  expect(
-    await rawInput.count(),
-    'expect find one element input#reactive-hash-raw-value',
-  ).toStrictEqual(1);
+  expect(await rawInput.count(), 'expect find one element input#reactive-hash-raw-value').toStrictEqual(1);
 
   const hashedInput = page.locator('input#reactive-hash-hashed-value');
-  expect(
-    await hashedInput.count(),
-    'expect find one element input#reactive-hash-hashed-value',
-  ).toStrictEqual(1);
+  expect(await hashedInput.count(), 'expect find one element input#reactive-hash-hashed-value').toStrictEqual(1);
 
   await rawInput.fill(testString);
   const renderedHash = await hashedInput.inputValue();
