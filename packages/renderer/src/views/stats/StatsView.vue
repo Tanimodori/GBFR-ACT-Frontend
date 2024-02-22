@@ -17,17 +17,13 @@
 </template>
 
 <script lang="ts" setup>
-  import dayjs from 'dayjs';
-  import relativeTime from 'dayjs/plugin/relativeTime';
-  import localizedFormat from 'dayjs/plugin/localizedFormat';
+  import dayjs from '@/utils/dayjs';
   import { ref } from 'vue';
   import { type RecordState, useRecordStore } from '@/store/record';
   import StatsPane from './StatsPane.vue';
   const activeKey = ref(1);
   const recordStore = useRecordStore();
 
-  dayjs.extend(relativeTime);
-  dayjs.extend(localizedFormat);
   const getTabName = (record: RecordState) => {
     const startTime = dayjs(record.startTimestamp).format('LTS');
     const duration = dayjs(record.lastTimestamp).from(dayjs(record.startTimestamp), true);
