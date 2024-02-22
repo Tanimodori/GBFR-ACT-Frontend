@@ -57,6 +57,7 @@
     "vue-tsc": "1.8.27"
   },
   "dependencies": {
+    "@vueuse/core": "^10.8.0",
     "ant-design-vue": "^4.1.2",
     "dayjs": "^1.11.10",
     "echarts": "^5.5.0",
