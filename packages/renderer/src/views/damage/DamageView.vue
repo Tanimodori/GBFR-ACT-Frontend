@@ -15,6 +15,7 @@
   import { computed, ref, watch } from 'vue';
   import DamagePane from './DamagePane.vue';
   import { windowOps } from '#preload';
+  import { useResizeObserver } from '@vueuse/core';
 
   const recordStore = useRecordStore();
   const activeRecord = computed(() => {
@@ -36,6 +37,8 @@
     });
   };
   watch(damagePaneElement, onResize);
+
+  useResizeObserver(damagePaneElement, onResize);
 </script>
 
 <style scoped lang="less">
