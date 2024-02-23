@@ -4,13 +4,7 @@
       <div class="logo">
         <orb-wand-icon class="anticon" />
       </div>
-      <a-menu
-        v-model:selectedKeys="selectedKeys"
-        theme="dark"
-        mode="horizontal"
-        class="menu"
-        @click="onMenuClick"
-      >
+      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="horizontal" class="menu" @click="onMenuClick">
         <a-menu-item key="run">
           <play-circle-outlined class="anticon" />
           <span>{{ $t('menu.run') }}</span>
@@ -25,34 +19,19 @@
         </a-menu-item>
       </a-menu>
       <div class="buttons">
-        <a-button
-          type="text"
-          @click="onMinimize"
-        >
+        <a-button type="text" @click="onMinimize">
           <minimize-icon class="anticon" />
         </a-button>
-        <a-button
-          type="text"
-          @click="onMaximize"
-        >
-          <restore-icon
-            v-if="isMaximized"
-            class="anticon"
-          />
-          <maximize-icon
-            v-else
-            class="anticon"
-          />
+        <a-button type="text" @click="onMaximize">
+          <restore-icon v-if="isMaximized" class="anticon" />
+          <maximize-icon v-else class="anticon" />
         </a-button>
-        <a-button
-          type="text"
-          @click="onClose"
-        >
+        <a-button type="text" @click="onClose">
           <close-icon class="anticon" />
         </a-button>
       </div>
     </a-layout-header>
-    <a-layout-content class="content">
+    <a-layout-content class="content gbfr-act-frontend-main-router-view">
       <router-view />
     </a-layout-content>
   </a-layout>

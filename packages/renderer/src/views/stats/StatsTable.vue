@@ -14,6 +14,7 @@
       width="100%"
       :title="title"
       :cancel-button-props="{ style: { display: 'none' } }"
+      :get-container="getContainer"
       @ok="handleOk"
     >
       <StatsDetail :player="currentPlayer" />
@@ -138,4 +139,5 @@
   const handleOk = () => {
     open.value = false;
   };
+  const getContainer = () => document.querySelector('.gbfr-act-frontend-main-router-view') as HTMLElement;
 </script>
