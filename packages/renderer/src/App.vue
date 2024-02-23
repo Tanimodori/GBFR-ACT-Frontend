@@ -44,7 +44,7 @@
     // dayjs
     dayjs.locale(validLocaleKey);
     // i18n
-    i18n.global.locale = validLocaleKey;
+    i18n.global.locale.value = validLocaleKey;
   });
 
   // Auto connect
