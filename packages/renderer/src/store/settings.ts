@@ -29,14 +29,14 @@ export const useSettingsStore = defineStore(
     });
 
     const damageStyle = ref({
-      bgAlpha: 100,
-      bgColor: 'FFFFFF',
-      bgCornerSize: 0,
-      fontAlpha: 100,
-      fontColor: 'FFFFFF',
-      fontSize: 16,
-      fontBorderCol: '000000',
-      fontBorderSize: 0,
+      bgColor: '#00000033',
+      bgCornerSize: '8px',
+      bgPadding: '8px',
+      fontColor: '#FFFFFFFF',
+      fontSize: '24px',
+      fontWeight: '700',
+      fontBorderColor: '#000000FF',
+      fontBorderSize: '0.8px',
     });
 
     const damageCols = ref({
@@ -75,7 +75,7 @@ export const useSettingsStore = defineStore(
   },
   {
     persist: {
-      key: 'record',
+      key: 'settings',
       storage: localStorage,
     },
   },

@@ -36,7 +36,7 @@
     padding: 16px;
 
     width: 100%;
-    height: 200px;
+    height: 250px;
 
     // Background
     background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -48,10 +48,5 @@
     // Border
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
-
-  .wrapper-pane {
-    width: 100%;
-    height: 100%;
   }
 </style>
