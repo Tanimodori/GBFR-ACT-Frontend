@@ -62,10 +62,10 @@ export const useRecordStore = defineStore('record', () => {
       if (event.type === 'message') {
         const timestamp = Date.now();
         const message: WsMessageRaw = JSON.parse(event.data);
-        parseMessage({
-          ...message,
-          timestamp,
-        });
+        if (!message.time_ms) {
+          message.time_ms = timestamp;
+        }
+        parseMessage(message as WsMessage);
       }
     },
   });
@@ -96,7 +96,7 @@ export const useRecordStore = defineStore('record', () => {
 
   const parseMessage = (message: WsMessage, recordId?: string) => {
     // 1. Update record
-    const timestamp = message.timestamp;
+    const timestamp = message.time_ms;
     let record = undefined;
     if (recordId) {
       // history message

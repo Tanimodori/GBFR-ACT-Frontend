@@ -1,5 +1,6 @@
 export type EnterAreaMessageRaw = {
   type: 'enter_area';
+  time_ms?: number;
 };
 
 export type DamageMessageRaw = {
@@ -11,12 +12,13 @@ export type DamageMessageRaw = {
     damage: number;
     flags: number;
   };
+  time_ms?: number;
 };
 
 export type WsMessageRaw = EnterAreaMessageRaw | DamageMessageRaw;
 
 export type WsMessageTimestamp = {
-  timestamp: number;
+  time_ms: number;
 };
 
 export type EnterAreaMessage = EnterAreaMessageRaw & WsMessageTimestamp;
