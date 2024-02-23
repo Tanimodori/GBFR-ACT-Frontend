@@ -4,6 +4,10 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import duration from 'dayjs/plugin/duration';
 import updateLocale from 'dayjs/plugin/updateLocale';
 
+// locales
+import 'dayjs/locale/en';
+import 'dayjs/locale/zh-cn';
+
 dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);
 dayjs.extend(duration);
