@@ -31,6 +31,9 @@
       "disconnect": "Disconnect",
       "disconnected": "Disconnected",
       "connected": "Connected to {value}"
+    },
+    "layout": {
+      "title": "Layout"
     }
   },
   "error": {

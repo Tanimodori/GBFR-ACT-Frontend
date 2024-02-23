@@ -31,6 +31,9 @@
       "disconnected": "连接已断开",
       "connect": "连接",
       "disconnect": "断开连接"
+    },
+    "layout": {
+      "title": "布局"
     }
   },
   "error": {
