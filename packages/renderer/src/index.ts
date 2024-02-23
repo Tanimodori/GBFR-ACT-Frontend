@@ -1,5 +1,16 @@
 import { createApp } from 'vue';
-import { ConfigProvider, App as AppComponent, Layout, Menu, Button, Tabs, Table } from 'ant-design-vue';
+import {
+  ConfigProvider,
+  App as AppComponent,
+  Layout,
+  Menu,
+  Button,
+  Tabs,
+  Table,
+  Divider,
+  Form,
+  Select,
+} from 'ant-design-vue';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import App from '@/App.vue';
@@ -22,5 +33,8 @@ app.use(Menu);
 app.use(Button);
 app.use(Tabs);
 app.use(Table);
+app.use(Divider);
+app.use(Form);
+app.use(Select);
 
 app.mount('#app');

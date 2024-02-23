@@ -40,6 +40,8 @@ export const useSettingsStore = defineStore(
     const damageWindowBound = ref({
       x: 0,
       y: 0,
+      anchorVertical: 'top',
+      anchorHorizontal: 'left',
     });
 
     const shortcut = ref({
