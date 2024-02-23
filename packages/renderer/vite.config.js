@@ -6,6 +6,9 @@ import { renderer } from 'unplugin-auto-expose';
 import { join } from 'node:path';
 import Icons from 'unplugin-icons/vite';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
+import { execSync } from 'child_process';
+
+const commitHash = execSync('git rev-parse --short HEAD').toString().trim();
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -23,6 +26,9 @@ const config = {
       '@/': join(PACKAGE_ROOT, 'src') + '/',
       'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js',
     },
+  },
+  define: {
+    __COMMIT_HASH__: JSON.stringify(commitHash),
   },
   base: '',
   server: {

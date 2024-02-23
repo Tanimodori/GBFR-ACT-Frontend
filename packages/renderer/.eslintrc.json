@@ -3,6 +3,9 @@
     "browser": true,
     "node": false
   },
+  "globals": {
+    "__COMMIT_HASH__": "readonly"
+  },
   "extends": [
     /** @see https://eslint.vuejs.org/rules/ */
     "plugin:vue/vue3-recommended"

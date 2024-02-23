@@ -30,6 +30,8 @@
       {{ $t('settings.about.title') }}
     </a-divider>
     <div class="about">
+      {{ `GBFR-ACT-Frontend v${APP_VERSION} (${commitHash})` }}
+      <br />
       {{ $t('settings.about.mit') }}
       <br />
       {{ $t('settings.about.copyright') }}
@@ -49,6 +51,8 @@
   import StyleSettings from './StyleSettings.vue';
   import LayoutSettings from './LayoutSettings.vue';
   import ShortcutSettings from './ShortcutSettings.vue';
+  const APP_VERSION = import.meta.env.VITE_APP_VERSION;
+  const commitHash = __COMMIT_HASH__;
 </script>
 
 <style scoped lang="less">
