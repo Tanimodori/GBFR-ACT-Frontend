@@ -12,6 +12,7 @@ import {
   Select,
   Input,
   InputNumber,
+  Checkbox,
 } from 'ant-design-vue';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
@@ -45,5 +46,6 @@ app.use(Form);
 app.use(Select);
 app.use(Input);
 app.use(InputNumber);
+app.use(Checkbox);
 
 app.mount('#app');

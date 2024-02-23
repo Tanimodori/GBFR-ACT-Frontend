@@ -22,7 +22,9 @@
     "connection": {
       "title": "Connection",
       "host": "Host",
-      "port": "Port"
+      "port": "Port",
+      "startup": " connect on startup",
+      "retry": "Retry on connection failure"
     }
   },
   "error": {
