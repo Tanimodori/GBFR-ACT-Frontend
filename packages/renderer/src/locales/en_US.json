@@ -32,9 +32,22 @@
       "disconnected": "Disconnected",
       "connected": "Connected to {value}"
     },
+    "style": {
+      "title": "Style",
+      "preview": "Preview",
+      "bgColor": "BG color",
+      "bgCornerSize": "BG corner",
+      "bgPadding": "BG padding",
+      "fontFace": "Font face",
+      "fontColor": "Font color",
+      "fontSize": "Font size",
+      "fontWeight": "Font Weight",
+      "fontBorderColor": "Font Border Color",
+      "fontBorderSize": "Font Border Size",
+      "colOrder": "Column Order"
+    },
     "layout": {
-      "title": "Layout",
-      "preview": "Preview"
+      "title": "Layout"
     }
   },
   "error": {

@@ -23,8 +23,17 @@
   const settingsStore = useSettingsStore();
 
   const injectStyle = computed(() => {
-    const { bgColor, bgCornerSize, bgPadding, fontColor, fontSize, fontWeight, fontBorderColor, fontBorderSize } =
-      settingsStore.damageStyle;
+    const {
+      bgColor,
+      bgCornerSize,
+      bgPadding,
+      fontFace,
+      fontColor,
+      fontSize,
+      fontWeight,
+      fontBorderColor,
+      fontBorderSize,
+    } = settingsStore.damageStyle;
     return `.gbfr-act-frontend-damage-pane {
   background-color: ${bgColor};
   border-radius: ${bgCornerSize};
@@ -32,6 +41,7 @@
 }
 .gbfr-act-frontend-damage-text {
   color: ${fontColor};
+  font-family: "${fontFace}";
   font-size: ${fontSize};
   font-weight: ${fontWeight};
   -webkit-text-stroke: ${fontBorderSize} ${fontBorderColor};

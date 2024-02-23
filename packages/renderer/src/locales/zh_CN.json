@@ -32,9 +32,22 @@
       "connect": "连接",
       "disconnect": "断开连接"
     },
+    "style": {
+      "title": "样式",
+      "preview": "预览",
+      "bgColor": "背景颜色",
+      "bgCornerSize": "背景圆角大小",
+      "bgPadding": "背景填充大小",
+      "fontFace": "字体",
+      "fontColor": "字体颜色",
+      "fontSize": "字体大小",
+      "fontWeight": "字重",
+      "fontBorderColor": "字体描边颜色",
+      "fontBorderSize": "字体描边大小",
+      "colOrder": "列顺序"
+    },
     "layout": {
-      "title": "布局",
-      "preview": "预览"
+      "title": "布局"
     }
   },
   "error": {

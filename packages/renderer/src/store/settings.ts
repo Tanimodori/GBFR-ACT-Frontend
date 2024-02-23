@@ -32,15 +32,13 @@ export const useSettingsStore = defineStore(
       bgColor: '#00000033',
       bgCornerSize: '8px',
       bgPadding: '8px',
+      fontFace: 'sans-serif',
       fontColor: '#FFFFFFFF',
       fontSize: '24px',
       fontWeight: '700',
       fontBorderColor: '#000000FF',
       fontBorderSize: '0.8px',
-    });
-
-    const damageCols = ref({
-      order: [],
+      colOrder: 'name,damage',
     });
 
     const mainWindowBound = ref({
@@ -67,7 +65,6 @@ export const useSettingsStore = defineStore(
       changeLocale,
       connection,
       damageStyle,
-      damageCols,
       mainWindowBound,
       damageWindowBound,
       shortcut,
