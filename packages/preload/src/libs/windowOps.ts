@@ -63,3 +63,7 @@ export const removeEventListener = (eventKey: WindowOpsEventKey, callback: Callb
 export const setBounds = (...values: Parameters<BrowserWindow['setBounds']>) => {
   ipcRenderer.send('setBounds', ...values);
 };
+
+export const getDpi = (): number => {
+  return ipcRenderer.sendSync('getDpi');
+};

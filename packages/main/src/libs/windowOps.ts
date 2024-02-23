@@ -1,5 +1,4 @@
-import type { BrowserWindow } from 'electron';
-import { ipcMain } from 'electron';
+import { type BrowserWindow, ipcMain, screen } from 'electron';
 
 const useWindow = (browserWindow: BrowserWindow) => {
   ipcMain.on('minimize', () => {
@@ -44,6 +43,12 @@ const useWindow = (browserWindow: BrowserWindow) => {
 
   ipcMain.on('setBounds', (_event, ...values: Parameters<BrowserWindow['setBounds']>) => {
     browserWindow.setBounds(...values);
+  });
+
+  ipcMain.on('getDpi', event => {
+    const winBounds = browserWindow.getBounds();
+    const currentScreen = screen.getDisplayNearestPoint({ x: winBounds.x, y: winBounds.y });
+    event.returnValue = currentScreen.scaleFactor;
   });
 };
 

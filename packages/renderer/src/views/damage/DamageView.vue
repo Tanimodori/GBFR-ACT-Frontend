@@ -1,12 +1,6 @@
 <template>
-  <div
-    ref="damagePaneElement"
-    class="damage-view"
-  >
-    <DamagePane
-      v-if="activeRecord"
-      :record="activeRecord"
-    />
+  <div ref="damagePaneElement" class="damage-view">
+    <DamagePane v-if="activeRecord" :record="activeRecord" />
   </div>
 </template>
 
@@ -16,7 +10,9 @@
   import DamagePane from './DamagePane.vue';
   import { windowOps } from '#preload';
   import { useResizeObserver } from '@vueuse/core';
+  import { useSettingsStore } from '@/store/settings';
 
+  const settingsStore = useSettingsStore();
   const recordStore = useRecordStore();
   const activeRecord = computed(() => {
     if (recordStore.activeRecordId) {
@@ -31,14 +27,41 @@
       return;
     }
     const rect = damagePaneElement.value.getBoundingClientRect();
+    const width = Math.ceil(rect.width);
+    const height = Math.ceil(rect.height);
+
+    const { x, y, anchorHorizontal, anchorVertical } = settingsStore.damageWindowBound;
+    const dpi = windowOps.getDpi();
+
+    let xoffsetFactor = 0;
+    if (anchorHorizontal === 'center') {
+      xoffsetFactor = -0.5;
+    } else if (anchorHorizontal === 'right') {
+      xoffsetFactor = -1;
+    }
+
+    let yoffsetFactor = 0;
+    if (anchorVertical === 'center') {
+      yoffsetFactor = -0.5;
+    } else if (anchorVertical === 'bottom') {
+      yoffsetFactor = -1;
+    }
+
     windowOps.setBounds({
-      width: Math.ceil(rect.width),
-      height: Math.ceil(rect.height),
+      x: Math.ceil(x / dpi + xoffsetFactor * width),
+      y: Math.ceil(y / dpi + yoffsetFactor * height),
+      width,
+      height,
     });
   };
-  watch(damagePaneElement, onResize);
 
+  watch(damagePaneElement, onResize);
   useResizeObserver(damagePaneElement, onResize);
+  settingsStore.$subscribe(mutation => {
+    if (mutation.storeId === 'damageWindowBound') {
+      onResize();
+    }
+  });
 </script>
 
 <style scoped lang="less">
