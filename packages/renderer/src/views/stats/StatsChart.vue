@@ -24,15 +24,27 @@
   };
 
   const option = computed(() => {
-    const validPlayers = props.record.players.filter(player => player);
-    if (validPlayers.length === 0) return {};
-    const legendData = validPlayers.map((player, i) => `[${i}]` + getActorName(player.id));
-    const series = validPlayers.map((player, i) => ({
-      name: `[${i}]` + getActorName(player.id),
-      type: 'line',
-      data: player.damageInMinutePerSecond,
-      showAllSymbol: false,
-    }));
+    const legendData: string[] = [];
+    const series = [];
+    let xAxisData: number[] = [];
+
+    for (let i = 0; i < props.record.players.length; i++) {
+      const player = props.record.players[i];
+      if (player) {
+        legendData.push(`[${i}]` + getActorName(player.id));
+        series.push({
+          name: `[${i}]` + getActorName(player.id),
+          type: 'line',
+          data: player.damageInMinutePerSecond,
+          showAllSymbol: false,
+        });
+        xAxisData = player.damageInMinutePerSecond.map((_, i) => i);
+      }
+    }
+
+    if (legendData.length === 0) {
+      return {};
+    }
 
     return {
       tooltip: {
@@ -50,7 +62,7 @@
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: validPlayers[0].damageInMinutePerSecond.map((_, i) => i),
+        data: xAxisData,
         axisLabel: {
           formatter: (value: number) => {
             if (value % 15 !== 0) {

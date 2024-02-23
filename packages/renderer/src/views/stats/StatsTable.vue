@@ -56,6 +56,8 @@
       key: 'totalDamage',
       sorter: (a, b) => a.totalDamage - b.totalDamage,
       sortDirections: ['descend', 'ascend'],
+      customRender: ({ text }) => Number(text).toLocaleString(),
+      align: 'right',
     },
     {
       title: t('statsTable.damageInMinute'),
@@ -63,6 +65,8 @@
       key: 'damageInMinute',
       sorter: (a, b) => a.damageInMinute - b.damageInMinute,
       sortDirections: ['descend', 'ascend'],
+      customRender: ({ text }) => Number(text).toLocaleString(),
+      align: 'right',
     },
     {
       title: t('statsTable.damageInSecond'),
@@ -70,6 +74,8 @@
       key: 'damageInSecond',
       sorter: (a, b) => a.damageInSecond - b.damageInSecond,
       sortDirections: ['descend', 'ascend'],
+      customRender: ({ text }) => Number(text).toLocaleString(),
+      align: 'right',
     },
     {
       title: t('statsTable.damageInMinutePerSecond'),
@@ -77,6 +83,8 @@
       key: 'damageInMinutePerSecond',
       sorter: (a, b) => a.damageInMinutePerSecond - b.damageInMinutePerSecond,
       sortDirections: ['descend', 'ascend'],
+      customRender: ({ text }) => Number(text).toLocaleString(),
+      align: 'right',
     },
   ];
 </script>

@@ -5,15 +5,17 @@
         <template v-if="player">
           <td v-for="column in columns" :key="column" :class="column">
             <span v-if="column === 'name'">{{ `[${index}]` + getActorName(player.id) }}</span>
-            <span v-if="column === 'totalDamage'">{{ player['totalDamage'][player['totalDamage'].length - 1] }}</span>
+            <span v-if="column === 'totalDamage'">
+              {{ player['totalDamage'][player['totalDamage'].length - 1].toLocaleString() }}
+            </span>
             <span v-if="column === 'damageInSecond'">
-              {{ player['damageInSecond'][player['damageInSecond'].length - 1] }}
+              {{ player['damageInSecond'][player['damageInSecond'].length - 1].toLocaleString() }}
             </span>
             <span v-if="column === 'damageInMinute'">
-              {{ player['damageInMinute'][player['damageInMinute'].length - 1] }}
+              {{ player['damageInMinute'][player['damageInMinute'].length - 1].toLocaleString() }}
             </span>
             <span v-if="column === 'damageInMinutePerSecond'">
-              {{ player['damageInMinutePerSecond'][player['damageInMinutePerSecond'].length - 1] }}
+              {{ player['damageInMinutePerSecond'][player['damageInMinutePerSecond'].length - 1].toLocaleString() }}
             </span>
           </td>
         </template>
