@@ -11,6 +11,9 @@
   import { type RecordState } from '@/store/record';
   import type { TableColumnType } from 'ant-design-vue';
   import { computed } from 'vue';
+  import { useI18n } from 'vue-i18n';
+
+  const { t } = useI18n();
 
   const props = defineProps<{
     record: RecordState;
@@ -45,35 +48,35 @@
 
   const columns: TableColumnType<StatsTableRow>[] = [
     {
-      title: 'Name',
+      title: t('statsTable.name'),
       dataIndex: 'name',
       key: 'name',
       sorter: (a, b) => a.key - b.key,
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Total Damage',
+      title: t('statsTable.totalDamage'),
       dataIndex: 'totalDamage',
       key: 'totalDamage',
       sorter: (a, b) => a.totalDamage - b.totalDamage,
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Damage In Minute',
+      title: t('statsTable.damageInMinute'),
       dataIndex: 'damageInMinute',
       key: 'damageInMinute',
       sorter: (a, b) => a.damageInMinute - b.damageInMinute,
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Damage In Second',
+      title: t('statsTable.damageInSecond'),
       dataIndex: 'damageInSecond',
       key: 'damageInSecond',
       sorter: (a, b) => a.damageInSecond - b.damageInSecond,
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Damage In Minute Per Second',
+      title: t('statsTable.damageInMinutePerSecond'),
       dataIndex: 'damageInMinutePerSecond',
       key: 'damageInMinutePerSecond',
       sorter: (a, b) => a.damageInMinutePerSecond - b.damageInMinutePerSecond,

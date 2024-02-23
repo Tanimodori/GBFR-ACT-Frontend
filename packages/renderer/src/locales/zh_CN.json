@@ -3,5 +3,13 @@
     "logs": "记录",
     "settings": "设置",
     "run": "运行"
+  },
+  "statsTable": {
+    "name": "名称",
+    "totalDamage": "伤害",
+    "damageInMinute": "伤害/分",
+    "damageInSecond": "dps",
+    "damageInMinutePerSecond": "dps/分",
+    "detail": "详情"
   }
 }

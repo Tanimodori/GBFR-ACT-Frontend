@@ -3,5 +3,13 @@
     "logs": "Logs",
     "settings": "Settings",
     "run": "Run"
+  },
+  "statsTable": {
+    "name": "Name",
+    "totalDamage": "Total Damage",
+    "damageInMinute": "Damage/Minute",
+    "damageInSecond": "DPS",
+    "damageInMinutePerSecond": "DPS/Minute",
+    "detail": "Detail"
   }
 }
