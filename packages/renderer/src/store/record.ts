@@ -123,7 +123,7 @@ export const useRecordStore = defineStore('record', () => {
 
     // 2. Update players
     if (message.type === 'damage') {
-      const { source, target, damage, flags: _flags, action_id: actionId } = message.data;
+      const { source, target, damage, flags: flags, action_id: actionId } = message.data;
       const [_sourceType, _sourceIdx, sourceId, sourcePartyIdx] = source;
       const [_targetType, _targetIdx, targetId, _targetPartyIdx] = target;
 
@@ -137,6 +137,8 @@ export const useRecordStore = defineStore('record', () => {
        * Do not record damage dealt by the enemy
        */
       if (sourcePartyIdx === -1) return;
+
+      const correctActionId = flags & (1 << 15) ? -3 : actionId;
 
       // 2.2 Find player
       if (!record.players[sourcePartyIdx]) {
@@ -207,10 +209,10 @@ export const useRecordStore = defineStore('record', () => {
         playerTarget.damage += damage;
       }
       // actions
-      const playerAction = player.actions.find(action => action.id === actionId);
+      const playerAction = player.actions.find(action => action.id === correctActionId);
       if (!playerAction) {
         player.actions.push({
-          id: actionId,
+          id: correctActionId,
           damage: damage,
           hits: 1,
           min: damage,
