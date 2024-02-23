@@ -1,20 +1,22 @@
 <template>
   <div class="damage-pane gbfr-act-frontend-damage-pane">
     <table>
-      <tr v-for="(player, index) in validPlayers" :key="player.id" class="gbfr-act-frontend-damage-text">
-        <td v-for="column in columns" :key="column" :class="column">
-          <span v-if="column === 'name'">{{ `[${index}]` + getActorName(player.id) }}</span>
-          <span v-if="column === 'totalDamage'">{{ player['totalDamage'][player['totalDamage'].length - 1] }}</span>
-          <span v-if="column === 'damageInSecond'">
-            {{ player['damageInSecond'][player['damageInSecond'].length - 1] }}
-          </span>
-          <span v-if="column === 'damageInMinute'">
-            {{ player['damageInMinute'][player['damageInMinute'].length - 1] }}
-          </span>
-          <span v-if="column === 'damageInMinutePerSecond'">
-            {{ player['damageInMinutePerSecond'][player['damageInMinutePerSecond'].length - 1] }}
-          </span>
-        </td>
+      <tr v-for="(player, index) in props.record.players" :key="index" class="gbfr-act-frontend-damage-text">
+        <template v-if="player">
+          <td v-for="column in columns" :key="column" :class="column">
+            <span v-if="column === 'name'">{{ `[${index}]` + getActorName(player.id) }}</span>
+            <span v-if="column === 'totalDamage'">{{ player['totalDamage'][player['totalDamage'].length - 1] }}</span>
+            <span v-if="column === 'damageInSecond'">
+              {{ player['damageInSecond'][player['damageInSecond'].length - 1] }}
+            </span>
+            <span v-if="column === 'damageInMinute'">
+              {{ player['damageInMinute'][player['damageInMinute'].length - 1] }}
+            </span>
+            <span v-if="column === 'damageInMinutePerSecond'">
+              {{ player['damageInMinutePerSecond'][player['damageInMinutePerSecond'].length - 1] }}
+            </span>
+          </td>
+        </template>
       </tr>
     </table>
   </div>
@@ -29,10 +31,6 @@
   const props = defineProps<{
     record: RecordState;
   }>();
-
-  const validPlayers = computed(() => {
-    return props.record.players.filter(player => player);
-  });
 
   const settingsStore = useSettingsStore();
 
