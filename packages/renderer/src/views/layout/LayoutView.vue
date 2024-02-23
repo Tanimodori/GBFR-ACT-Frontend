@@ -31,7 +31,7 @@
         </a-button>
       </div>
     </a-layout-header>
-    <a-layout-content class="content gbfr-act-frontend-main-router-view">
+    <a-layout-content class="content">
       <router-view />
     </a-layout-content>
   </a-layout>
@@ -91,6 +91,7 @@
     padding-inline: 0px;
 
     display: flex;
+    z-index: 2000;
   }
 
   .logo {

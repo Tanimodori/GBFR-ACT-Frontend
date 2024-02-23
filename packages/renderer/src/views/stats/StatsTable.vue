@@ -14,7 +14,6 @@
       width="100%"
       :title="title"
       :cancel-button-props="{ style: { display: 'none' } }"
-      :get-container="getContainer"
       @ok="handleOk"
     >
       <StatsDetail :player="currentPlayer" />
@@ -30,6 +29,7 @@
   import { useI18n } from 'vue-i18n';
   import MoniterOutlined from '~icons/ant-design/monitor-outlined';
   import StatsDetail from './StatsDetail.vue';
+  import { onUnmounted } from 'vue';
 
   const { t } = useI18n();
 
@@ -131,7 +131,7 @@
   const open = ref(false);
   const currentKey = ref(0);
   const currentPlayer = computed(() => props.record.players[currentKey.value]);
-  const title = computed(() => rows.value[currentKey.value].name);
+  const title = computed(() => rows.value[currentKey.value]?.name);
   const showDetail = (key: number) => {
     currentKey.value = key;
     open.value = true;
@@ -139,5 +139,8 @@
   const handleOk = () => {
     open.value = false;
   };
-  const getContainer = () => document.querySelector('.gbfr-act-frontend-main-router-view') as HTMLElement;
+
+  onUnmounted(() => {
+    open.value = false;
+  });
 </script>
