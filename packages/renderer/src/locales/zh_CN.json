@@ -33,7 +33,8 @@
       "disconnect": "断开连接"
     },
     "layout": {
-      "title": "布局"
+      "title": "布局",
+      "preview": "预览"
     }
   },
   "error": {

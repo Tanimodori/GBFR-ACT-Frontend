@@ -1,10 +1,6 @@
 <template>
   <div class="damage-pane">
-    <span
-      v-for="player in validPlayers"
-      :key="player.id"
-      class="damage-text"
-    >
+    <span v-for="player in validPlayers" :key="player.id" class="damage-text">
       {{ player.totalDamage[player.totalDamage.length - 1] }}
       <br />
     </span>
@@ -30,6 +26,7 @@
       color: white;
       font-size: 24px;
       font-weight: bold;
+      -webkit-text-stroke: 1px black;
     }
   }
 </style>

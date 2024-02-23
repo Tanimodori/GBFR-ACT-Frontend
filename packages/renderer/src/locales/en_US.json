@@ -33,7 +33,8 @@
       "connected": "Connected to {value}"
     },
     "layout": {
-      "title": "Layout"
+      "title": "Layout",
+      "preview": "Preview"
     }
   },
   "error": {
