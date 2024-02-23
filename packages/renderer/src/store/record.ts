@@ -41,9 +41,7 @@ export const useRecordStore = defineStore('record', () => {
   const records = ref<RecordState[]>([]);
 
   const connect = () => {
-    if (ws) {
-      ws.close();
-    }
+    disconnect();
     const settingsStore = useSettingsStore();
     const host = settingsStore.connection.host;
     const port = settingsStore.connection.port;
@@ -59,6 +57,13 @@ export const useRecordStore = defineStore('record', () => {
         });
       }
     };
+  };
+
+  const disconnect = () => {
+    if (ws) {
+      ws.close();
+    }
+    ws = null;
   };
 
   const addRecord = (timestamp?: number, id?: string) => {

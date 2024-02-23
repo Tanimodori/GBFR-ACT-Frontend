@@ -10,6 +10,7 @@ import {
   Divider,
   Form,
   Select,
+  Input,
 } from 'ant-design-vue';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
@@ -36,5 +37,6 @@ app.use(Table);
 app.use(Divider);
 app.use(Form);
 app.use(Select);
+app.use(Input);
 
 app.mount('#app');

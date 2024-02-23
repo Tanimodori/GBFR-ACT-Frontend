@@ -20,7 +20,15 @@
       "language": "Language"
     },
     "connection": {
-      "title": "Connection"
+      "title": "Connection",
+      "host": "Host",
+      "port": "Port"
     }
+  },
+  "error": {
+    "valueRequired": "Required",
+    "valueNumber": "Must be a number",
+    "valueMin": "Must not be greater than {value}",
+    "valueMax": "Must not be greater than {value}"
   }
 }

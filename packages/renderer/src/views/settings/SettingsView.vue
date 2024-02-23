@@ -9,6 +9,7 @@
       <ApiOutlined class="anticon" />
       {{ $t('settings.connection.title') }}
     </a-divider>
+    <ConnectionSettings />
   </div>
 </template>
 
@@ -16,4 +17,5 @@
   import GlobalOutlined from '~icons/ant-design/global-outlined';
   import ApiOutlined from '~icons/ant-design/api-outlined';
   import LocaleSettings from './LocaleSettings.vue';
+  import ConnectionSettings from './ConnectionSettings.vue';
 </script>
