@@ -1,8 +1,5 @@
 <template>
-  <a-tabs
-    v-model:activeKey="activeKey"
-    type="card"
-  >
+  <a-tabs v-model:activeKey="activeKey" type="editable-card" hide-add @edit="onEdit">
     <template #leftExtra>
       <div class="tabLeft"></div>
     </template>
@@ -10,6 +7,7 @@
       v-for="i in recordStore.records.length"
       :key="recordStore.records[i - 1].id"
       :tab="getTabName(recordStore.records[i - 1])"
+      :closable="true"
     >
       <StatsPane :record="recordStore.records[i - 1]" />
     </a-tab-pane>
@@ -39,6 +37,18 @@
   watch([activeKey, () => recordStore.activeRecordId], autoSelectActiveTab);
   onMounted(autoSelectActiveTab);
   onActivated(autoSelectActiveTab);
+
+  // Remove tab
+  const onEdit = (targetKey: string | MouseEvent, action: string) => {
+    if (action !== 'remove') {
+      return;
+    }
+    const key = targetKey as string;
+    const index = recordStore.records.findIndex(record => record.id === key);
+    if (index !== -1) {
+      recordStore.records.splice(index, 1);
+    }
+  };
 </script>
 
 <style scoped lang="less">
