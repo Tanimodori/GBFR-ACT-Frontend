@@ -18,10 +18,10 @@
 
 <script lang="ts" setup>
   import dayjs from '@/utils/dayjs';
-  import { ref } from 'vue';
+  import { ref, watch, onActivated, onMounted } from 'vue';
   import { type RecordState, useRecordStore } from '@/store/record';
   import StatsPane from './StatsPane.vue';
-  const activeKey = ref(1);
+  const activeKey = ref('');
   const recordStore = useRecordStore();
 
   const getTabName = (record: RecordState) => {
@@ -29,6 +29,16 @@
     const duration = dayjs(record.lastTimestamp).from(dayjs(record.startTimestamp), true);
     return `${startTime}[${duration}]`;
   };
+
+  // Auto select active tab
+  const autoSelectActiveTab = () => {
+    if (activeKey.value === '' && recordStore.activeRecordId !== '') {
+      activeKey.value = recordStore.activeRecordId;
+    }
+  };
+  watch([activeKey, () => recordStore.activeRecordId], autoSelectActiveTab);
+  onMounted(autoSelectActiveTab);
+  onActivated(autoSelectActiveTab);
 </script>
 
 <style scoped lang="less">
