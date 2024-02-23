@@ -17,6 +17,8 @@
   import { computed } from 'vue';
   import en_US from 'ant-design-vue/es/locale/en_US';
   import zh_CN from 'ant-design-vue/es/locale/zh_CN';
+  import zh_HK from 'ant-design-vue/es/locale/zh_HK';
+  import zh_TW from 'ant-design-vue/es/locale/zh_TW';
   import { isValidLocale } from './locales';
 
   const settingsStore = useSettingsStore();
@@ -27,6 +29,8 @@
   const locales = {
     en_US,
     zh_CN,
+    zh_HK,
+    zh_TW,
   };
   const locale = computed(() => {
     const localeKey = settingsStore.locale.language;
