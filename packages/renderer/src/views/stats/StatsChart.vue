@@ -1,9 +1,5 @@
 <template>
-  <v-chart
-    :option="option"
-    class="chart"
-    autoresize
-  />
+  <v-chart :option="option" class="chart" autoresize />
 </template>
 
 <script setup lang="ts">
@@ -15,6 +11,7 @@
   import { computed } from 'vue';
   import type { RecordState } from '@/store/record';
   import dayjs from '@/utils/dayjs';
+  import { getActorName } from '@/utils/magic';
 
   use([CanvasRenderer, LineChart, TooltipComponent, LegendComponent, GridComponent]);
 
@@ -29,9 +26,9 @@
   const option = computed(() => {
     const validPlayers = props.record.players.filter(player => player);
     if (validPlayers.length === 0) return {};
-    const legendData = validPlayers.map(player => `${player.id}`);
-    const series = validPlayers.map(player => ({
-      name: `${player.id}`,
+    const legendData = validPlayers.map((player, i) => `[${i}]` + getActorName(player.id));
+    const series = validPlayers.map((player, i) => ({
+      name: `[${i}]` + getActorName(player.id),
       type: 'line',
       data: player.damageInMinutePerSecond,
       showAllSymbol: false,

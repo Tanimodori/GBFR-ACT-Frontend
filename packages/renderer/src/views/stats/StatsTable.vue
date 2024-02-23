@@ -1,14 +1,10 @@
 <template>
-  <a-table
-    :columns="columns"
-    :data-source="rows"
-    size="middle"
-    :pagination="false"
-  />
+  <a-table :columns="columns" :data-source="rows" size="middle" :pagination="false" />
 </template>
 
 <script lang="ts" setup>
   import { type RecordState } from '@/store/record';
+  import { getActorName } from '@/utils/magic';
   import type { TableColumnType } from 'ant-design-vue';
   import { computed } from 'vue';
   import { useI18n } from 'vue-i18n';
@@ -21,7 +17,7 @@
 
   interface StatsTableRow {
     key: number;
-    name: number;
+    name: string;
     totalDamage: number;
     damageInMinute: number;
     damageInSecond: number;
@@ -36,7 +32,7 @@
       const frame = player.totalDamage.length - 1;
       rows.push({
         key: i,
-        name: player.id,
+        name: `[${i}]` + getActorName(player.id),
         totalDamage: player.totalDamage[frame],
         damageInMinute: player.damageInMinute[frame],
         damageInSecond: player.damageInSecond[frame],
