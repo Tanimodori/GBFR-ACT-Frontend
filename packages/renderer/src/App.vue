@@ -1,5 +1,5 @@
 <template>
-  <a-config-provider>
+  <a-config-provider :locale="locale">
     <a-app>
       <router-view></router-view>
     </a-app>
@@ -14,10 +14,38 @@
   import { useRouter } from 'vue-router';
   import { onUnmounted } from 'vue';
   import type { Rectangle } from 'electron';
+  import { computed } from 'vue';
+  import en_US from 'ant-design-vue/es/locale/en_US';
+  import zh_CN from 'ant-design-vue/es/locale/zh_CN';
+  import dayjs from './utils/dayjs';
+  import i18n from './locales';
 
   const settingsStore = useSettingsStore();
   const recordStore = useRecordStore();
   const router = useRouter();
+
+  // Locale
+  const locales = {
+    en_US,
+    zh_CN,
+  };
+  const isValidLocale = (locale: string): locale is keyof typeof locales => {
+    return locale in locales;
+  };
+  const locale = computed(() => {
+    const localeKey = settingsStore.locale.language;
+    const validLocaleKey = isValidLocale(localeKey) ? localeKey : 'en_US';
+    return locales[validLocaleKey];
+  });
+
+  settingsStore.$subscribe((_mutation, state) => {
+    const localeKey = state.locale.language;
+    const validLocaleKey = isValidLocale(localeKey) ? localeKey : 'en_US';
+    // dayjs
+    dayjs.locale(validLocaleKey);
+    // i18n
+    i18n.global.locale = validLocaleKey;
+  });
 
   // Auto connect
   onMounted(() => {

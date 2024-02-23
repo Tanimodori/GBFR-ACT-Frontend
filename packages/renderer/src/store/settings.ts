@@ -4,6 +4,10 @@ import { ref } from 'vue';
 export const useSettingsStore = defineStore(
   'settings',
   () => {
+    const locale = ref({
+      language: 'zh_CN',
+    });
+
     const connection = ref({
       host: 'localhost',
       port: 24399,
@@ -44,6 +48,7 @@ export const useSettingsStore = defineStore(
     });
 
     return {
+      locale,
       connection,
       damageStyle,
       damageCols,

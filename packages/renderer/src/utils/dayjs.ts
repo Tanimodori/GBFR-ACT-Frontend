@@ -9,7 +9,7 @@ dayjs.extend(localizedFormat);
 dayjs.extend(duration);
 dayjs.extend(updateLocale);
 
-const langs = ['en', 'zh-Hans'];
+const langs = ['en', 'zh_CN'];
 
 for (const lang of langs) {
   dayjs.updateLocale(lang, {
