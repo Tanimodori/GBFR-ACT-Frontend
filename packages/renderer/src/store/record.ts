@@ -2,7 +2,8 @@ import type { WsMessage, WsMessageRaw } from '@/types/wsMessage';
 import { defineStore } from 'pinia';
 import { useSettingsStore } from './settings';
 import { v4 as uuidv4 } from 'uuid';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { useWebSocket } from '@vueuse/core';
 
 export interface PlayerTargetState {
   id: number;
@@ -36,18 +37,27 @@ export interface RecordState {
 }
 
 export const useRecordStore = defineStore('record', () => {
-  let ws: WebSocket | null = null;
   const activeRecordId = ref('');
   const records = ref<RecordState[]>([]);
 
-  const connect = () => {
-    disconnect();
-    const settingsStore = useSettingsStore();
+  const settingsStore = useSettingsStore();
+  const wsUrl = computed(() => {
     const host = settingsStore.connection.host;
     const port = settingsStore.connection.port;
-    ws = new WebSocket(`ws://${host}:${port}`);
+    return `ws://${host}:${port}`;
+  });
 
-    ws.onmessage = (event: MessageEvent<string>) => {
+  const {
+    ws,
+    status: readyState,
+    open: connect,
+    close: disconnect,
+  } = useWebSocket(wsUrl, {
+    immediate: false,
+    autoReconnect: {
+      retries: () => settingsStore.connection.retry,
+    },
+    onMessage: (_ws, event: MessageEvent<string>) => {
       if (event.type === 'message') {
         const timestamp = Date.now();
         const message: WsMessageRaw = JSON.parse(event.data);
@@ -56,15 +66,10 @@ export const useRecordStore = defineStore('record', () => {
           timestamp,
         });
       }
-    };
-  };
+    },
+  });
 
-  const disconnect = () => {
-    if (ws) {
-      ws.close();
-    }
-    ws = null;
-  };
+  const wsCurrentUrl = computed(() => ws.value?.url);
 
   const addRecord = (timestamp?: number, id?: string) => {
     timestamp = timestamp ?? Date.now();
@@ -218,17 +223,12 @@ export const useRecordStore = defineStore('record', () => {
     }
   };
 
-  const readyState = () => {
-    if (ws) {
-      return ws.readyState;
-    }
-    return WebSocket.CLOSED;
-  };
-
   return {
     activeRecordId,
     records,
+    wsCurrentUrl,
     connect,
+    disconnect,
     addRecord,
     getCurrentRecord,
     parseMessage,

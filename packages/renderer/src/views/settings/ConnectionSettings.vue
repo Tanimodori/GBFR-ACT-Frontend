@@ -1,7 +1,7 @@
 <template>
   <a-form
     :label-col="{ span: 4 }"
-    :wrapper-col="{ span: 12 }"
+    :wrapper-col="{ span: 16 }"
     layout="horizontal"
   >
     <a-form-item
@@ -23,23 +23,67 @@
         v-model:value="state.port"
         min="1"
         max="65535"
-        class="input-number"
+        class="full-width"
         @blur="validate('port')"
       />
     </a-form-item>
     <a-form-item
       name="startup"
       v-bind="validateInfos.startup"
-      :wrapper-col="{ offset: 4, span: 12 }"
+      :wrapper-col="{ offset: 4, span: 16 }"
     >
       <a-checkbox v-model:checked="state.startup">{{ $t('settings.connection.startup') }}</a-checkbox>
     </a-form-item>
     <a-form-item
       name="retry"
       v-bind="validateInfos.retry"
-      :wrapper-col="{ offset: 4, span: 12 }"
+      :wrapper-col="{ offset: 4, span: 16 }"
     >
       <a-checkbox v-model:checked="state.retry">{{ $t('settings.connection.retry') }}</a-checkbox>
+    </a-form-item>
+    <a-form-item :label="$t('settings.connection.readyState')">
+      <a-tag
+        v-if="recordStore.readyState === 'OPEN'"
+        color="success"
+        class="full-width"
+      >
+        <CheckCircleOutlined class="anticon" />
+        {{ $t('settings.connection.connected', { value: recordStore.wsCurrentUrl }) }}
+      </a-tag>
+      <a-tag
+        v-if="recordStore.readyState === 'CONNECTING'"
+        color="processing"
+        class="full-width"
+      >
+        <ClockCircleOutlined class="anticon" />
+        {{ $t('settings.connection.connecting', { value: recordStore.wsCurrentUrl }) }}
+      </a-tag>
+      <a-tag
+        v-if="recordStore.readyState === 'CLOSED'"
+        color="error"
+        class="full-width"
+      >
+        <CloseCircleOutlined class="anticon" />
+        {{ $t('settings.connection.disconnected') }}
+      </a-tag>
+    </a-form-item>
+    <a-form-item :wrapper-col="{ offset: 4, span: 16 }">
+      <div class="button-holder">
+        <a-button
+          type="primary"
+          :disabled="recordStore.readyState !== 'CLOSED'"
+          :loading="recordStore.readyState === 'CONNECTING'"
+          @click="recordStore.connect"
+        >
+          {{ $t('settings.connection.connect') }}
+        </a-button>
+        <a-button
+          :disabled="recordStore.readyState === 'CLOSED'"
+          @click="() => recordStore.disconnect(1000)"
+        >
+          {{ $t('settings.connection.disconnect') }}
+        </a-button>
+      </div>
     </a-form-item>
   </a-form>
 </template>
@@ -49,9 +93,14 @@
   import { reactive } from 'vue';
   import { Form } from 'ant-design-vue';
   import { useI18n } from 'vue-i18n';
+  import { useRecordStore } from '@/store/record';
+  import CheckCircleOutlined from '~icons/ant-design/check-circle-outlined';
+  import ClockCircleOutlined from '~icons/ant-design/clock-circle-outlined';
+  import CloseCircleOutlined from '~icons/ant-design/close-circle-outlined';
   const useForm = Form.useForm;
 
   const settingsStore = useSettingsStore();
+  const recordStore = useRecordStore();
   const state = reactive({
     host: settingsStore.connection.host,
     port: settingsStore.connection.port,
@@ -82,7 +131,17 @@
 </script>
 
 <style scoped lang="less">
-  .input-number {
+  .full-width {
     width: 100%;
+  }
+
+  .button-holder {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+
+    > button {
+      flex: 1;
+    }
   }
 </style>

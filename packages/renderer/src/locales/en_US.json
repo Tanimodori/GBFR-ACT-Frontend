@@ -24,7 +24,12 @@
       "host": "Host",
       "port": "Port",
       "startup": " connect on startup",
-      "retry": "Retry on connection failure"
+      "retry": "Retry on connection failure",
+      "readyState": "State",
+      "connecting": "Connecting to {value} ...",
+      "connect": "Connect",
+      "disconnect": "Disconnect",
+      "disconnected": "Disconnected"
     }
   },
   "error": {
