@@ -18,6 +18,9 @@
       "zh_CN": "简体中文",
       "title": "Localization",
       "language": "Language"
+    },
+    "connection": {
+      "title": "Connection"
     }
   }
 }
