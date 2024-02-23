@@ -1,13 +1,12 @@
 {
-  "name": "vite-electron-builder",
-  "description": "Secure boilerplate for Electron app based on Vite",
-  "version": "2.0.0",
+  "name": "gbfr-act-frontend",
+  "description": "Frontend project for GBFR-ACT",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "author": {
-    "email": "kozackunisoft@gmail.com",
-    "name": "Alex Kozack",
-    "url": "https://kozack.me"
+    "email": "unknowner2014@gmail.com",
+    "name": "Tanimodori"
   },
   "main": "packages/main/dist/index.js",
   "scripts": {
