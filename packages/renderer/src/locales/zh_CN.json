@@ -47,7 +47,16 @@
       "colOrder": "列顺序"
     },
     "layout": {
-      "title": "布局"
+      "title": "布局",
+      "x": "锚点X坐标",
+      "y": "锚点Y坐标",
+      "anchorVertical": "锚点垂直对齐",
+      "anchorHorizontal": "锚点水平对齐",
+      "top": "顶部",
+      "center": "中心",
+      "bottom": "底部",
+      "left": "左侧",
+      "right": "右侧"
     }
   },
   "error": {

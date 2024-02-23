@@ -14,6 +14,7 @@ import {
   InputNumber,
   Checkbox,
   Tag,
+  Segmented,
 } from 'ant-design-vue';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
@@ -49,5 +50,6 @@ app.use(Input);
 app.use(InputNumber);
 app.use(Checkbox);
 app.use(Tag);
+app.use(Segmented);
 
 app.mount('#app');

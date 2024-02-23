@@ -47,7 +47,16 @@
       "colOrder": "Column Order"
     },
     "layout": {
-      "title": "Layout"
+      "title": "Layout",
+      "x": "Anchor X",
+      "y": "Anchor Y",
+      "anchorVertical": "Anchor v-align",
+      "anchorHorizontal": "Anchor h-align",
+      "top": "Top",
+      "center": "Center",
+      "bottom": "Bottom",
+      "left": "Left",
+      "right": "Right"
     }
   },
   "error": {
