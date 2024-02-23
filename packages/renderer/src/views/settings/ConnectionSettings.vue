@@ -1,68 +1,27 @@
 <template>
-  <a-form
-    :label-col="{ span: 4 }"
-    :wrapper-col="{ span: 16 }"
-    layout="horizontal"
-  >
-    <a-form-item
-      name="host"
-      :label="$t('settings.connection.host')"
-      v-bind="validateInfos.host"
-    >
-      <a-input
-        v-model:value="state.host"
-        @blur="validate('host')"
-      />
+  <a-form :label-col="{ span: 4 }" :wrapper-col="{ span: 16 }" layout="horizontal">
+    <a-form-item name="host" :label="$t('settings.connection.host')" v-bind="validateInfos.host">
+      <a-input v-model:value="state.host" @blur="validate('host')" />
     </a-form-item>
-    <a-form-item
-      name="port"
-      :label="$t('settings.connection.port')"
-      v-bind="validateInfos.port"
-    >
-      <a-input-number
-        v-model:value="state.port"
-        min="1"
-        max="65535"
-        class="full-width"
-        @blur="validate('port')"
-      />
+    <a-form-item name="port" :label="$t('settings.connection.port')" v-bind="validateInfos.port">
+      <a-input-number v-model:value="state.port" min="1" max="65535" class="full-width" @blur="validate('port')" />
     </a-form-item>
-    <a-form-item
-      name="startup"
-      v-bind="validateInfos.startup"
-      :wrapper-col="{ offset: 4, span: 16 }"
-    >
+    <a-form-item name="startup" v-bind="validateInfos.startup" :wrapper-col="{ offset: 4, span: 16 }">
       <a-checkbox v-model:checked="state.startup">{{ $t('settings.connection.startup') }}</a-checkbox>
     </a-form-item>
-    <a-form-item
-      name="retry"
-      v-bind="validateInfos.retry"
-      :wrapper-col="{ offset: 4, span: 16 }"
-    >
+    <a-form-item name="retry" v-bind="validateInfos.retry" :wrapper-col="{ offset: 4, span: 16 }">
       <a-checkbox v-model:checked="state.retry">{{ $t('settings.connection.retry') }}</a-checkbox>
     </a-form-item>
     <a-form-item :label="$t('settings.connection.readyState')">
-      <a-tag
-        v-if="recordStore.readyState === 'OPEN'"
-        color="success"
-        class="full-width"
-      >
+      <a-tag v-if="recordStore.readyState === 'OPEN'" color="success" class="full-width">
         <CheckCircleOutlined class="anticon" />
         {{ $t('settings.connection.connected', { value: recordStore.wsCurrentUrl }) }}
       </a-tag>
-      <a-tag
-        v-if="recordStore.readyState === 'CONNECTING'"
-        color="processing"
-        class="full-width"
-      >
+      <a-tag v-if="recordStore.readyState === 'CONNECTING'" color="processing" class="full-width">
         <ClockCircleOutlined class="anticon" />
         {{ $t('settings.connection.connecting', { value: recordStore.wsCurrentUrl }) }}
       </a-tag>
-      <a-tag
-        v-if="recordStore.readyState === 'CLOSED'"
-        color="error"
-        class="full-width"
-      >
+      <a-tag v-if="recordStore.readyState === 'CLOSED'" color="error" class="full-width">
         <CloseCircleOutlined class="anticon" />
         {{ $t('settings.connection.disconnected') }}
       </a-tag>
@@ -77,10 +36,7 @@
         >
           {{ $t('settings.connection.connect') }}
         </a-button>
-        <a-button
-          :disabled="recordStore.readyState === 'CLOSED'"
-          @click="() => recordStore.disconnect(1000)"
-        >
+        <a-button :disabled="recordStore.readyState === 'CLOSED'" @click="() => recordStore.disconnect(1000)">
           {{ $t('settings.connection.disconnect') }}
         </a-button>
       </div>
