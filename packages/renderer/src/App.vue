@@ -87,15 +87,10 @@
   });
 </script>
 
-<style>
-  html {
-    ::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
+<style lang="less">
   body {
     margin: 0;
+    overflow: hidden;
   }
 
   #app {

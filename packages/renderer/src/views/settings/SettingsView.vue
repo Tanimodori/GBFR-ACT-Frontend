@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="setting-view">
     <a-divider orientation="left">
       <GlobalOutlined class="anticon" />
       {{ $t('settings.locale.title') }}
@@ -19,3 +19,10 @@
   import LocaleSettings from './LocaleSettings.vue';
   import ConnectionSettings from './ConnectionSettings.vue';
 </script>
+
+<style scoped lang="less">
+  .setting-view {
+    height: 100%;
+    overflow-y: auto;
+  }
+</style>

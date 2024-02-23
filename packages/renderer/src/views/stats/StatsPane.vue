@@ -1,13 +1,15 @@
 <template>
   <div class="wrapper">
-    <StatsTable
-      class="stats-table"
-      :record="props.record"
-    />
-    <StatsChart
-      class="stats-chart"
-      :record="props.record"
-    />
+    <div class="wrapper-inner">
+      <StatsTable
+        class="stats-table"
+        :record="props.record"
+      />
+      <StatsChart
+        class="stats-chart"
+        :record="props.record"
+      />
+    </div>
   </div>
 </template>
 
@@ -23,11 +25,17 @@
 
 <style scoped lang="less">
   .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    // magic number
     height: calc(100vh - 89px);
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .wrapper-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 400px;
+      height: 100%;
+    }
   }
 
   .stats-chart {
