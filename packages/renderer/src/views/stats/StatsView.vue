@@ -1,17 +1,24 @@
 <template>
-  <a-tabs v-model:activeKey="activeKey" type="editable-card" hide-add @edit="onEdit">
-    <template #leftExtra>
-      <div class="tabLeft"></div>
-    </template>
-    <a-tab-pane
-      v-for="i in recordStore.records.length"
-      :key="recordStore.records[i - 1].id"
-      :tab="getTabName(recordStore.records[i - 1])"
-      :closable="true"
-    >
-      <StatsPane :record="recordStore.records[i - 1]" />
-    </a-tab-pane>
-  </a-tabs>
+  <template v-if="recordStore.records.length === 0">
+    <div class="empty">
+      <a-empty />
+    </div>
+  </template>
+  <template v-else>
+    <a-tabs v-model:activeKey="activeKey" type="editable-card" hide-add @edit="onEdit">
+      <template #leftExtra>
+        <div class="tabLeft"></div>
+      </template>
+      <a-tab-pane
+        v-for="i in recordStore.records.length"
+        :key="recordStore.records[i - 1].id"
+        :tab="getTabName(recordStore.records[i - 1])"
+        :closable="true"
+      >
+        <StatsPane :record="recordStore.records[i - 1]" />
+      </a-tab-pane>
+    </a-tabs>
+  </template>
 </template>
 
 <script lang="ts" setup>
@@ -52,6 +59,13 @@
 </script>
 
 <style scoped lang="less">
+  .empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   .tabLeft {
     width: 10px;
   }
