@@ -11,6 +11,7 @@ import {
   Form,
   Select,
   Input,
+  InputNumber,
 } from 'ant-design-vue';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
@@ -43,5 +44,6 @@ app.use(Divider);
 app.use(Form);
 app.use(Select);
 app.use(Input);
+app.use(InputNumber);
 
 app.mount('#app');

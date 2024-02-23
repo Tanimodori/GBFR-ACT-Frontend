@@ -118,6 +118,7 @@
     width: 32px;
     height: 32px;
     background: rgba(0, 0, 0);
+    text-align: center;
 
     svg.anticon {
       color: white;
