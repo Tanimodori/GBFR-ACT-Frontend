@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
   import { type RecordState } from '@/store/record';
-  import { getActorName } from '@/utils/magic';
+  import { getActorName } from '@/utils/enums';
   import type { TableColumnType } from 'ant-design-vue';
   import { computed } from 'vue';
   import { useI18n } from 'vue-i18n';

@@ -11,7 +11,7 @@
   import { computed } from 'vue';
   import type { RecordState } from '@/store/record';
   import dayjs from '@/utils/dayjs';
-  import { getActorName } from '@/utils/magic';
+  import { getActorName } from '@/utils/enums';
 
   use([CanvasRenderer, LineChart, TooltipComponent, LegendComponent, GridComponent]);
 
