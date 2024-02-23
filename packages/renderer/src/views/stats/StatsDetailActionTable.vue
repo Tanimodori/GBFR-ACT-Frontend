@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
   import type { PlayerState } from '@/store/record';
+  import { getActionName } from '@/utils/enums';
   import type { TableColumnType } from 'ant-design-vue';
   import { computed } from 'vue';
   import { useI18n } from 'vue-i18n';
@@ -29,7 +30,7 @@
       if (!action) continue;
       rows.push({
         key: action.id,
-        name: action.id.toString(),
+        name: getActionName(props.player.id, action.id),
         hits: action.hits,
         totalDamage: action.damage,
         min: action.min,
