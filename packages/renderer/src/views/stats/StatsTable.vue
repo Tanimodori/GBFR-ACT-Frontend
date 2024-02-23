@@ -31,8 +31,8 @@
       if (!player) continue;
       const frame = player.totalDamage.length - 1;
       rows.push({
-        key: i,
-        name: `[${i}]` + getActorName(player.id),
+        key: player.index,
+        name: `[${player.index}]` + getActorName(player.id),
         totalDamage: player.totalDamage[frame],
         damageInMinute: player.damageInMinute[frame],
         damageInSecond: player.damageInSecond[frame],

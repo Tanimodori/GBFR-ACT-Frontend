@@ -31,9 +31,9 @@
     for (let i = 0; i < props.record.players.length; i++) {
       const player = props.record.players[i];
       if (player) {
-        legendData.push(`[${i}]` + getActorName(player.id));
+        legendData.push(`[${player.index}]` + getActorName(player.id));
         series.push({
-          name: `[${i}]` + getActorName(player.id),
+          name: `[${player.index}]` + getActorName(player.id),
           type: 'line',
           data: player.damageInMinutePerSecond,
           showAllSymbol: false,

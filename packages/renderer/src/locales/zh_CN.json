@@ -44,7 +44,11 @@
       "fontWeight": "字重",
       "fontBorderColor": "字体描边颜色",
       "fontBorderSize": "字体描边大小",
-      "colOrder": "列顺序"
+      "colOrder": "列顺序",
+      "rowOrderBy": "行排序依据",
+      "rowOrder": "行排序",
+      "asc": "递增",
+      "desc": "递减"
     },
     "layout": {
       "title": "布局",

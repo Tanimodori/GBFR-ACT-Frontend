@@ -41,6 +41,12 @@
     <a-form-item name="colOrder" :label="$t('settings.style.colOrder')" v-bind="validateInfos.colOrder">
       <a-input v-model:value="state.colOrder" @blur="validate('colOrder')" />
     </a-form-item>
+    <a-form-item name="rowOrderBy" :label="$t('settings.style.rowOrderBy')" v-bind="validateInfos.rowOrderBy">
+      <a-segmented v-model:value="state.rowOrderBy" :options="rowOrderByData" />
+    </a-form-item>
+    <a-form-item name="rowOrder" :label="$t('settings.style.rowOrder')" v-bind="validateInfos.rowOrder">
+      <a-segmented v-model:value="state.rowOrder" :options="rowOrderData" />
+    </a-form-item>
   </a-form>
 </template>
 
@@ -64,10 +70,23 @@
     fontBorderColor: settingsStore.damageStyle.fontBorderColor,
     fontBorderSize: settingsStore.damageStyle.fontBorderSize,
     colOrder: settingsStore.damageStyle.colOrder,
+    rowOrderBy: settingsStore.damageStyle.rowOrderBy,
+    rowOrder: settingsStore.damageStyle.rowOrder,
   });
   type StateKey = keyof typeof state;
 
   const { t } = useI18n();
+  const rowOrderByData = reactive([
+    { label: t('statsTable.name'), value: 'name' },
+    { label: t('statsTable.totalDamage'), value: 'totalDamage' },
+    { label: t('statsTable.damageInMinute'), value: 'damageInMinute' },
+    { label: t('statsTable.damageInSecond'), value: 'damageInSecond' },
+    { label: t('statsTable.damageInMinutePerSecond'), value: 'damageInMinutePerSecond' },
+  ]);
+  const rowOrderData = reactive([
+    { label: t('settings.style.asc'), value: 'asc' },
+    { label: t('settings.style.desc'), value: 'desc' },
+  ]);
   const rules = reactive({
     bgColor: [{ required: true, message: t('error.valueRequired') }],
     bgCornerSize: [{ required: true, message: t('error.valueRequired') }],
@@ -79,6 +98,8 @@
     fontBorderColor: [{ required: true, message: t('error.valueRequired') }],
     fontBorderSize: [{ required: true, message: t('error.valueRequired') }],
     colOrder: [{ required: true, message: t('error.valueRequired') }],
+    rowOrderBy: [{ required: true, message: t('error.valueRequired') }],
+    rowOrder: [{ required: true, message: t('error.valueRequired') }],
   });
 
   const { validate, validateInfos } = useForm(state, rules, {

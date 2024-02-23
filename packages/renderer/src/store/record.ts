@@ -20,6 +20,7 @@ export interface PlayerActionState {
 
 export interface PlayerState {
   id: number;
+  index: number;
   totalDamage: number[];
   damageInSecond: number[];
   damageInMinute: number[];
@@ -141,6 +142,7 @@ export const useRecordStore = defineStore('record', () => {
       if (!record.players[sourcePartyIdx]) {
         record.players[sourcePartyIdx] = {
           id: sourceId,
+          index: sourcePartyIdx,
           totalDamage: [0],
           damageInSecond: [0],
           damageInMinute: [0],

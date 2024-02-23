@@ -39,6 +39,8 @@ export const useSettingsStore = defineStore(
       fontBorderColor: '#000000FF',
       fontBorderSize: '0.8px',
       colOrder: 'name,totalDamage',
+      rowOrderBy: 'totalDamage',
+      rowOrder: 'desc',
     });
 
     const mainWindowBound = ref({

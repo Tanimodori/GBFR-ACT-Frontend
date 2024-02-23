@@ -17,6 +17,7 @@
   for (let i = 0; i < 4; ++i) {
     players.push({
       id: Number.parseInt(actors[i], 16),
+      index: i,
       totalDamage: [totalDamage],
       damageInSecond: [damageInSecond],
       damageInMinute: [damageInMinute],

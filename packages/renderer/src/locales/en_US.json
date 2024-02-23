@@ -44,7 +44,11 @@
       "fontWeight": "Font Weight",
       "fontBorderColor": "Font Border Color",
       "fontBorderSize": "Font Border Size",
-      "colOrder": "Column Order"
+      "colOrder": "Column Order",
+      "rowOrderBy": "Row order by",
+      "rowOrder": "Row order",
+      "asc": "Ascending",
+      "desc": "Descending"
     },
     "layout": {
       "title": "Layout",
