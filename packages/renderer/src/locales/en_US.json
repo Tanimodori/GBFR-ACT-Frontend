@@ -29,7 +29,8 @@
       "connecting": "Connecting to {value} ...",
       "connect": "Connect",
       "disconnect": "Disconnect",
-      "disconnected": "Disconnected"
+      "disconnected": "Disconnected",
+      "connected": "Connected to {value}"
     }
   },
   "error": {
