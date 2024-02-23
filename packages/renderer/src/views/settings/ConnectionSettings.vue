@@ -6,11 +6,11 @@
     <a-form-item name="port" :label="$t('settings.connection.port')" v-bind="validateInfos.port">
       <a-input-number v-model:value="state.port" min="1" max="65535" class="full-width" @blur="validate('port')" />
     </a-form-item>
-    <a-form-item name="startup" v-bind="validateInfos.startup" :wrapper-col="{ offset: 4, span: 16 }">
-      <a-checkbox v-model:checked="state.startup">{{ $t('settings.connection.startup') }}</a-checkbox>
+    <a-form-item name="startup" :label="$t('settings.connection.startup')" v-bind="validateInfos.startup">
+      <a-checkbox v-model:checked="state.startup" @change="validate('startup')" />
     </a-form-item>
-    <a-form-item name="retry" v-bind="validateInfos.retry" :wrapper-col="{ offset: 4, span: 16 }">
-      <a-checkbox v-model:checked="state.retry">{{ $t('settings.connection.retry') }}</a-checkbox>
+    <a-form-item name="retry" :label="$t('settings.connection.retry')" v-bind="validateInfos.retry">
+      <a-checkbox v-model:checked="state.retry" @change="validate('retry')" />
     </a-form-item>
     <a-form-item :label="$t('settings.connection.readyState')">
       <a-tag v-if="recordStore.readyState === 'OPEN'" color="success" class="full-width">

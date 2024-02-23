@@ -59,7 +59,7 @@ export const useSettingsStore = defineStore(
 
     const shortcut = ref({
       enabled: true,
-      key: 'CmdOrCtrl+Alt+num0',
+      switch: 'CmdOrCtrl+Alt+num0',
     });
 
     return {

@@ -20,6 +20,11 @@
       {{ $t('settings.layout.title') }}
     </a-divider>
     <LayoutSettings />
+    <a-divider orientation="left">
+      <KeyboardAltOutline class="anticon" />
+      {{ $t('settings.shortcut.title') }}
+    </a-divider>
+    <ShortcutSettings />
   </div>
 </template>
 
@@ -28,10 +33,12 @@
   import ApiOutlined from '~icons/ant-design/api-outlined';
   import BgColorsOutlined from '~icons/ant-design/bg-colors-outlined';
   import LayoutOutlined from '~icons/ant-design/layout-outlined';
+  import KeyboardAltOutline from '~icons/material-symbols/keyboard-alt-outline';
   import LocaleSettings from './LocaleSettings.vue';
   import ConnectionSettings from './ConnectionSettings.vue';
   import StyleSettings from './StyleSettings.vue';
   import LayoutSettings from './LayoutSettings.vue';
+  import ShortcutSettings from './ShortcutSettings.vue';
 </script>
 
 <style scoped lang="less">

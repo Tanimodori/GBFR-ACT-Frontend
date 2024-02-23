@@ -54,16 +54,22 @@
     }
   };
 
-  onMounted(() => {
+  const refreshShortcut = () => {
     globalShortcut.unregisterAllGlobalShortcuts();
-    const shortcut = settingsStore.shortcut.key;
+    const shortcut = settingsStore.shortcut.switch;
     if (settingsStore.shortcut.enabled && shortcut) {
       globalShortcut.registerGlobalShortcut(shortcut, toggleRoute);
     }
-  });
+  };
 
+  onMounted(refreshShortcut);
   onUnmounted(() => {
     globalShortcut.unregisterAllGlobalShortcuts();
+  });
+  settingsStore.$subscribe(mutation => {
+    if (mutation.type === 'patch object' && mutation.payload.shortcut) {
+      refreshShortcut();
+    }
   });
 
   // Resize

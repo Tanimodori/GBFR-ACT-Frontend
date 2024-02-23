@@ -27,8 +27,8 @@
       "title": "Connection",
       "host": "Host",
       "port": "Port",
-      "startup": " connect on startup",
-      "retry": "Retry on connection failure",
+      "startup": "Auto connect",
+      "retry": "Retry",
       "readyState": "State",
       "connecting": "Connecting to {value} ...",
       "connect": "Connect",
@@ -65,13 +65,19 @@
       "bottom": "Bottom",
       "left": "Left",
       "right": "Right"
+    },
+    "shortcut": {
+      "title": "Shortcut",
+      "enabled": "Enable Shortcut",
+      "switch": "Switch view"
     }
   },
   "error": {
     "valueRequired": "Required",
     "valueNumber": "Must be a number",
     "valueMin": "Must not be greater than {value}",
-    "valueMax": "Must not be greater than {value}"
+    "valueMax": "Must not be greater than {value}",
+    "invalidShortcut": "Invalid Shortcut"
   },
   "actors": {
     "9498420d": "Djeeta",

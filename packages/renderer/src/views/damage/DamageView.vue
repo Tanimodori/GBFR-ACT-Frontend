@@ -58,7 +58,7 @@
   watch(damagePaneElement, onResize);
   useResizeObserver(damagePaneElement, onResize);
   settingsStore.$subscribe(mutation => {
-    if (mutation.storeId === 'damageWindowBound') {
+    if (mutation.type === 'patch object' && mutation.payload.damageWindowBound) {
       onResize();
     }
   });
