@@ -10,13 +10,16 @@ export const useSettingsStore = defineStore(
       language: 'zh_CN',
     });
 
-    watch(locale, ({ language: localeKey }) => {
-      const validLocaleKey = isValidLocale(localeKey) ? localeKey : 'en_US';
-      // dayjs
-      dayjs.locale(validLocaleKey);
-      // i18n
-      i18n.global.locale.value = validLocaleKey;
-    });
+    watch(
+      () => locale.value.language,
+      localeKey => {
+        const validLocaleKey = isValidLocale(localeKey) ? localeKey : 'en_US';
+        // dayjs
+        dayjs.locale(validLocaleKey);
+        // i18n
+        i18n.global.locale.value = validLocaleKey;
+      },
+    );
 
     const connection = ref({
       host: 'localhost',
