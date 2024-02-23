@@ -14,7 +14,7 @@
   import { reactive } from 'vue';
   import { Form } from 'ant-design-vue';
   import { useI18n } from 'vue-i18n';
-  import { isAccelerator, isKey } from '@/utils/accelerator';
+  import { isAccelerator } from '@/utils/accelerator';
   const useForm = Form.useForm;
 
   const settingsStore = useSettingsStore();
@@ -32,8 +32,6 @@
       { required: true, message: t('error.valueRequired') },
       {
         validator: (_rule: unknown, value: string) => {
-          console.log(isKey('num'));
-          console.log(value, isAccelerator(value));
           if (isAccelerator(value)) {
             return Promise.resolve();
           } else {
