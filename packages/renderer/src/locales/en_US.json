@@ -70,6 +70,11 @@
       "title": "Shortcut",
       "enabled": "Enable Shortcut",
       "switch": "Switch view"
+    },
+    "about": {
+      "title": "About",
+      "mit": "Released under MIT License",
+      "copyright": "Copyright © 2024 Tanimodori"
     }
   },
   "error": {

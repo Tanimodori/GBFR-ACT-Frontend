@@ -70,6 +70,11 @@
       "title": "快捷键",
       "enabled": "启用快捷键",
       "switch": "切换视图"
+    },
+    "about": {
+      "title": "关于",
+      "mit": "以 MIT 协议释出",
+      "copyright": "版权所有 © 2024 Tanimodori"
     }
   },
   "error": {
