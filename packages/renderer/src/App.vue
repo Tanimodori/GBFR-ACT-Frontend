@@ -104,4 +104,8 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
   }
+
+  .anticon {
+    vertical-align: -0.25em;
+  }
 </style>
