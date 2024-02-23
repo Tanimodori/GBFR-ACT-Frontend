@@ -38,7 +38,7 @@ export const useSettingsStore = defineStore(
       fontWeight: '700',
       fontBorderColor: '#000000FF',
       fontBorderSize: '0.8px',
-      colOrder: 'name,damage',
+      colOrder: 'name,totalDamage',
     });
 
     const mainWindowBound = ref({

@@ -10,16 +10,25 @@
 
   const players: PlayerState[] = [];
 
+  let totalDamage = 9_876_543_210;
+  let damageInSecond = 98_765;
+  let damageInMinute = 9_876_543;
+  let damageInMinutePerSecond = 98_765;
   for (let i = 0; i < 4; ++i) {
     players.push({
       id: Number.parseInt(actors[i], 16),
-      totalDamage: [9_876_543_210],
-      damageInSecond: [98_765],
-      damageInMinute: [9_876_543],
-      damageInMinutePerSecond: [98_765],
+      totalDamage: [totalDamage],
+      damageInSecond: [damageInSecond],
+      damageInMinute: [damageInMinute],
+      damageInMinutePerSecond: [damageInMinutePerSecond],
       targets: [],
       actions: [],
     });
+
+    totalDamage = Math.floor(totalDamage / 10);
+    damageInSecond = Math.floor(damageInSecond / 10);
+    damageInMinute = Math.floor(damageInMinute / 10);
+    damageInMinutePerSecond = Math.floor(damageInMinutePerSecond / 10);
   }
 
   const demoRecord: RecordState = {
