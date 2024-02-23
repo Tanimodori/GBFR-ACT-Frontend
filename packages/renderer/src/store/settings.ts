@@ -1,11 +1,21 @@
+import i18n, { isValidLocale } from '@/locales';
+import dayjs from '@/utils/dayjs';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 export const useSettingsStore = defineStore(
   'settings',
   () => {
     const locale = ref({
       language: 'zh_CN',
+    });
+
+    watch(locale, ({ language: localeKey }) => {
+      const validLocaleKey = isValidLocale(localeKey) ? localeKey : 'en_US';
+      // dayjs
+      dayjs.locale(validLocaleKey);
+      // i18n
+      i18n.global.locale.value = validLocaleKey;
     });
 
     const connection = ref({
