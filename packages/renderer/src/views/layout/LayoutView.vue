@@ -1,7 +1,7 @@
 <template>
   <a-layout>
     <a-layout-header class="header">
-      <div class="logo">
+      <div class="logo" :class="logoClass">
         <orb-wand-icon class="anticon" />
       </div>
       <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="horizontal" class="menu" @click="onMenuClick">
@@ -50,7 +50,15 @@
   import { windowOps } from '#preload';
   import { onMounted } from 'vue';
   import { useRouter } from 'vue-router';
+  import { useRecordStore } from '@/store/record';
+  import { computed } from 'vue';
+
   const selectedKeys = ref<string[]>(['logs']);
+  const recordStore = useRecordStore();
+
+  const logoClass = computed(() => {
+    return 'logo-' + recordStore.readyState.toLowerCase();
+  });
 
   const router = useRouter();
 
@@ -97,8 +105,17 @@
   .logo {
     width: 32px;
     height: 32px;
-    background: rgba(0, 0, 0);
     text-align: center;
+
+    &.logo-open {
+      background: #52c41a;
+    }
+    &.logo-connecting {
+      background: #faad14;
+    }
+    &.logo-closed {
+      background: #f5222d;
+    }
 
     svg.anticon {
       color: white;
