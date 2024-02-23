@@ -10,7 +10,11 @@
     "damageInMinute": "Damage/Minute",
     "damageInSecond": "DPS",
     "damageInMinutePerSecond": "DPS/Minute",
-    "detail": "Detail"
+    "detail": "Detail",
+    "hits": "hits",
+    "min": "min",
+    "max": "max",
+    "avg": "avg"
   },
   "settings": {
     "locale": {
@@ -90,5 +94,9 @@
     "c97f3365": "Yodarha",
     "d16cfbde": "Vaseraga",
     "8056abcd": "Id"
+  },
+  "stats": {
+    "target": "target",
+    "action": "Action"
   }
 }

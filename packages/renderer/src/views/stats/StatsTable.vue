@@ -1,13 +1,34 @@
 <template>
-  <a-table :columns="columns" :data-source="rows" size="middle" :pagination="false" />
+  <div>
+    <a-table :columns="columns" :data-source="rows" size="middle" :pagination="false">
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'detail'">
+          <a-button type="link" @click="showDetail(record.key)">
+            <MoniterOutlined class="anticon" />
+          </a-button>
+        </template>
+      </template>
+    </a-table>
+    <a-modal
+      v-model:open="open"
+      width="100%"
+      :title="title"
+      :cancel-button-props="{ style: { display: 'none' } }"
+      @ok="handleOk"
+    >
+      <StatsDetail :player="currentPlayer" />
+    </a-modal>
+  </div>
 </template>
 
 <script lang="ts" setup>
   import { type RecordState } from '@/store/record';
   import { getActorName } from '@/utils/enums';
   import type { TableColumnType } from 'ant-design-vue';
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
+  import MoniterOutlined from '~icons/ant-design/monitor-outlined';
+  import StatsDetail from './StatsDetail.vue';
 
   const { t } = useI18n();
 
@@ -42,6 +63,16 @@
     return rows;
   });
 
+  const allDamage = computed(() => {
+    let result = 0;
+    for (let i = 0; i < props.record.players.length; i++) {
+      const player = props.record.players[i];
+      if (!player) continue;
+      result += player.totalDamage[player.totalDamage.length - 1];
+    }
+    return result;
+  });
+
   const columns: TableColumnType<StatsTableRow>[] = [
     {
       title: t('statsTable.name'),
@@ -56,7 +87,11 @@
       key: 'totalDamage',
       sorter: (a, b) => a.totalDamage - b.totalDamage,
       sortDirections: ['descend', 'ascend'],
-      customRender: ({ text }) => Number(text).toLocaleString(),
+      customRender: ({ text }) => {
+        const damage = Number(text);
+        const percent = ((damage / allDamage.value) * 100).toFixed(1);
+        return `${damage.toLocaleString()} (${percent}%)`;
+      },
       align: 'right',
     },
     {
@@ -86,5 +121,21 @@
       customRender: ({ text }) => Number(text).toLocaleString(),
       align: 'right',
     },
+    {
+      title: t('statsTable.detail'),
+      key: 'detail',
+    },
   ];
+
+  const open = ref(false);
+  const currentKey = ref(0);
+  const currentPlayer = computed(() => props.record.players[currentKey.value]);
+  const title = computed(() => rows.value[currentKey.value].name);
+  const showDetail = (key: number) => {
+    currentKey.value = key;
+    open.value = true;
+  };
+  const handleOk = () => {
+    open.value = false;
+  };
 </script>

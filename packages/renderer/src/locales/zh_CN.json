@@ -10,7 +10,11 @@
     "damageInMinute": "伤害/分",
     "damageInSecond": "dps",
     "damageInMinutePerSecond": "dps/分",
-    "detail": "详情"
+    "detail": "详情",
+    "hits": "命中",
+    "min": "最小值",
+    "max": "最大值",
+    "avg": "平均值"
   },
   "settings": {
     "locale": {
@@ -90,5 +94,9 @@
     "c97f3365": "尤达哈拉",
     "d16cfbde": "巴萨拉卡",
     "8056abcd": "伊德"
+  },
+  "stats": {
+    "target": "目标",
+    "action": "技能"
   }
 }
