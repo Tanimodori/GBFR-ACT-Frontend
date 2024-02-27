@@ -1,5 +1,12 @@
 <template>
-  <v-chart :option="option" class="chart" autoresize />
+  <div class="chart-wrapper">
+    <a-form :label-col="{ span: 4 }" :wrapper-col="{ span: 16 }" layout="horizontal">
+      <a-form-item name="anchorVertical" :label="$t('statsTable.seriesName')">
+        <a-segmented v-model:value="seriesName" :options="seriesNameData" />
+      </a-form-item>
+    </a-form>
+    <v-chart :option="option" class="chart" autoresize />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -8,10 +15,12 @@
   import { LineChart } from 'echarts/charts';
   import { TooltipComponent, LegendComponent, GridComponent } from 'echarts/components';
   import VChart from 'vue-echarts';
-  import { computed } from 'vue';
+  import { computed, ref, watch, reactive } from 'vue';
   import type { RecordState } from '@/store/record';
   import dayjs from '@/utils/dayjs';
   import { getActorName } from '@/utils/enums';
+  import { useSettingsStore } from '@/store/settings';
+  import { useI18n } from 'vue-i18n';
 
   use([CanvasRenderer, LineChart, TooltipComponent, LegendComponent, GridComponent]);
 
@@ -22,6 +31,19 @@
   const durationFormatter = (value: number) => {
     return dayjs.duration(value * 1000).format('m:ss');
   };
+
+  const { t } = useI18n();
+  const settingsStore = useSettingsStore();
+  const seriesName = ref(settingsStore.statsTable.seriesName);
+  watch(seriesName, value => {
+    settingsStore.statsTable.seriesName = value;
+  });
+  const seriesNameData = reactive([
+    { label: t('statsTable.totalDamage'), value: 'totalDamage' as const },
+    { label: t('statsTable.damageInMinute'), value: 'damageInMinute' as const },
+    { label: t('statsTable.damageInSecond'), value: 'damageInSecond' as const },
+    { label: t('statsTable.damageInMinutePerSecond'), value: 'damageInMinutePerSecond' as const },
+  ]);
 
   const option = computed(() => {
     const legendData: string[] = [];
@@ -35,7 +57,7 @@
         series.push({
           name: `[${player.index}]` + getActorName(player.id),
           type: 'line',
-          data: player.damageInMinutePerSecond,
+          data: player[seriesName.value],
           showAllSymbol: false,
         });
         xAxisData = player.damageInMinutePerSecond.map((_, i) => i);
@@ -82,7 +104,13 @@
 </script>
 
 <style scoped lang="less">
-  .chart {
+  .chart-wrapper {
     height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .chart {
+      height: 100%;
+    }
   }
 </style>

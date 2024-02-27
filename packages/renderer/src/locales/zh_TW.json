@@ -14,7 +14,8 @@
     "hits": "命中",
     "min": "最小值",
     "max": "最大值",
-    "avg": "平均值"
+    "avg": "平均值",
+    "seriesName": "列"
   },
   "settings": {
     "locale": {

@@ -1,5 +1,6 @@
 import i18n, { isValidLocale } from '@/locales';
 import dayjs from '@/utils/dayjs';
+import { type ValidColumnKey } from '@/utils/enums';
 import { defineStore } from 'pinia';
 import { ref, watch } from 'vue';
 
@@ -62,6 +63,10 @@ export const useSettingsStore = defineStore(
       switch: 'CmdOrCtrl+Alt+num0',
     });
 
+    const statsTable = ref({
+      seriesName: 'damageInMinutePerSecond' as Exclude<ValidColumnKey, 'name'>,
+    });
+
     return {
       locale,
       changeLocale,
@@ -70,6 +75,7 @@ export const useSettingsStore = defineStore(
       mainWindowBound,
       damageWindowBound,
       shortcut,
+      statsTable,
     };
   },
   {

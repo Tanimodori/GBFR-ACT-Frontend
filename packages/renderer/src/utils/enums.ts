@@ -34,3 +34,12 @@ export const getEnemyName = (id: number) => {
     return id.toString(16);
   }
 };
+
+export const validColumnKey = [
+  'name',
+  'totalDamage',
+  'damageInSecond',
+  'damageInMinute',
+  'damageInMinutePerSecond',
+] as const;
+export type ValidColumnKey = (typeof validColumnKey)[number];

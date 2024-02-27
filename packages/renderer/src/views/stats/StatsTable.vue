@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-table :columns="columns" :data-source="rows" size="middle" :pagination="false">
+    <a-table :columns="columns" :data-source="rows" size="small" :pagination="false">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'detail'">
           <a-button type="link" @click="showDetail(record.key)">

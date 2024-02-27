@@ -14,7 +14,8 @@
     "hits": "hits",
     "min": "min",
     "max": "max",
-    "avg": "avg"
+    "avg": "avg",
+    "seriesName": "Column"
   },
   "settings": {
     "locale": {

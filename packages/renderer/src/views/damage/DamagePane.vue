@@ -29,17 +29,15 @@
   import { useSettingsStore } from '@/store/settings';
   import { useStyleTag } from '@vueuse/core';
   import { computed } from 'vue';
-  import { getActorName } from '@/utils/enums';
+  import { getActorName, validColumnKey, type ValidColumnKey } from '@/utils/enums';
   const props = defineProps<{
     record: RecordState;
   }>();
 
   const settingsStore = useSettingsStore();
 
-  const validColumnKey = ['name', 'totalDamage', 'damageInSecond', 'damageInMinute', 'damageInMinutePerSecond'];
-  type ValidColumnKey = 'name' | 'totalDamage' | 'damageInSecond' | 'damageInMinute' | 'damageInMinutePerSecond';
   const columns = computed(() => {
-    return settingsStore.damageStyle.colOrder.split(',').filter(key => validColumnKey.includes(key));
+    return settingsStore.damageStyle.colOrder.split(',').filter(key => validColumnKey.includes(key as ValidColumnKey));
   });
 
   const validPlayers = computed(() => {
