@@ -30,7 +30,7 @@
   const recordStore = useRecordStore();
 
   const getTabName = (record: RecordState) => {
-    const startTime = dayjs(record.startTimestamp).format('hh:mm:ss');
+    const startTime = dayjs(record.startTimestamp).format('HH:mm:ss');
     const duration = dayjs(record.lastTimestamp).from(dayjs(record.startTimestamp), true);
     return `${startTime}[${duration}]`;
   };
