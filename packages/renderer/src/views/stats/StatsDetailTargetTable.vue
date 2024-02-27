@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
   import type { PlayerState } from '@/store/record';
+  import { getEnemyName } from '@/utils/enums';
   import type { TableColumnType } from 'ant-design-vue';
   import { computed } from 'vue';
   import { useI18n } from 'vue-i18n';
@@ -25,7 +26,7 @@
       if (!target) continue;
       rows.push({
         key: target.id,
-        name: target.id.toString(16),
+        name: getEnemyName(target.id),
         totalDamage: target.damage,
       });
     }

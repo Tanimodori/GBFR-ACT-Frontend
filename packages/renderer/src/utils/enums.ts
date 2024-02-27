@@ -25,3 +25,12 @@ export const getActionName = (playerId: number, actionId: number) => {
     }
   }
 };
+
+export const getEnemyName = (id: number) => {
+  const key = `enemies.${id.toString(16)}`;
+  if (i18n.global.te(key)) {
+    return i18n.global.t(key);
+  } else {
+    return id.toString(16);
+  }
+};
