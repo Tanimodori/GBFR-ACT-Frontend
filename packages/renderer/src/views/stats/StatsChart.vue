@@ -54,7 +54,7 @@
         data: legendData,
       },
       grid: {
-        left: 60,
+        left: 80,
         top: 30,
         right: 30,
         bottom: 30,
