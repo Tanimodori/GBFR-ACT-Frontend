@@ -1,4 +1,4 @@
-import type { WsMessage, WsMessageRaw } from '@/types/wsMessage';
+import type { WsMessage } from '@/types/wsMessage';
 import { defineStore } from 'pinia';
 import { useSettingsStore } from './settings';
 import { v4 as uuidv4 } from 'uuid';
@@ -61,11 +61,12 @@ export const useRecordStore = defineStore('record', () => {
     onMessage: (_ws, event: MessageEvent<string>) => {
       if (event.type === 'message') {
         const timestamp = Date.now();
-        const message: WsMessageRaw = JSON.parse(event.data);
+        const message: WsMessage = JSON.parse(event.data);
+        /** Defence for older version of ACT, will be remove soon */
         if (!message.time_ms) {
           message.time_ms = timestamp;
         }
-        parseMessage(message as WsMessage);
+        parseMessage(message);
       }
     },
   });
