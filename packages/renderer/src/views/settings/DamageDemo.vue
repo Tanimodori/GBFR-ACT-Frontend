@@ -11,19 +11,42 @@
   const players: PlayerState[] = [];
 
   let totalDamage = 9_876_543_210;
-  let damageInSecond = 98_765;
-  let damageInMinute = 9_876_543;
-  let damageInMinutePerSecond = 98_765;
+  let totalDamagePerSecond = 9_876_543_210;
+  let damageInSecond = 9_876_543_210;
+  let damageInTenSecond = 9_876_543_210;
+  let damageInTenSecondPerSecond = 9_876_543_210;
+  let damageInMinute = 9_876_543_210;
+  let damageInMinutePerSecond = 9_876_543_210;
   for (let i = 0; i < 4; ++i) {
     players.push({
-      id: Number.parseInt(actors[i], 16),
-      index: i,
-      totalDamage: [totalDamage],
-      damageInSecond: [damageInSecond],
-      damageInMinute: [damageInMinute],
-      damageInMinutePerSecond: [damageInMinutePerSecond],
-      targets: [],
-      actions: [],
+      info: {
+        weapon: {
+          weapon_id: 0,
+          skill1: 0,
+          skill1_lv: 0,
+          skill2: 0,
+          skill2_lv: 0,
+          skill3: 0,
+          skill3_lv: 0,
+          bless_item: 0,
+        },
+        sigils: [],
+        is_online: 0,
+        c_name: '',
+        d_name: '',
+        common_info: ['', 0, Number.parseInt(actors[i], 16), i],
+      },
+      stats: {
+        totalDamage: [totalDamage],
+        totalDamagePerSecond: [totalDamagePerSecond],
+        damageInSecond: [damageInSecond],
+        damageInTenSecond: [damageInTenSecond],
+        damageInTenSecondPerSecond: [damageInTenSecondPerSecond],
+        damageInMinute: [damageInMinute],
+        damageInMinutePerSecond: [damageInMinutePerSecond],
+        targets: [],
+        actions: [],
+      },
     });
 
     totalDamage = Math.floor(totalDamage / 10);
@@ -38,6 +61,7 @@
     lastTimestamp: Date.now(),
     players,
     messages: [],
+    hasBattleMessage: true,
   };
 </script>
 

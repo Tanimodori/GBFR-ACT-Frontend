@@ -25,12 +25,13 @@
 
   const rows = computed(() => {
     const rows: StatsDetailActionTableRow[] = [];
-    for (let i = 0; i < props.player.actions.length; i++) {
-      const action = props.player.actions[i];
+    for (let i = 0; i < props.player.stats.actions.length; i++) {
+      const action = props.player.stats.actions[i];
       if (!action) continue;
+      const id = props.player.info.common_info[3];
       rows.push({
         key: action.id,
-        name: getActionName(props.player.id, action.id),
+        name: getActionName(id, action.id),
         hits: action.hits,
         totalDamage: action.damage,
         min: action.min,
@@ -42,11 +43,11 @@
   });
 
   const allHits = computed(() => {
-    return props.player.actions.reduce((prev, curr) => prev + curr.hits, 0);
+    return props.player.stats.actions.reduce((prev, curr) => prev + curr.hits, 0);
   });
 
   const allDamage = computed(() => {
-    return props.player.actions.reduce((prev, curr) => prev + curr.damage, 0);
+    return props.player.stats.actions.reduce((prev, curr) => prev + curr.damage, 0);
   });
 
   const { t } = useI18n();

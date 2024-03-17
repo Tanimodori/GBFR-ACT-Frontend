@@ -4,18 +4,29 @@
       <tr v-for="(player, index) in validPlayers" :key="index" class="gbfr-act-frontend-damage-text">
         <template v-if="player">
           <td v-for="column in columns" :key="column" :class="column">
-            <span v-if="column === 'name'">{{ `[${player.index}]` + getActorName(player.id) }}</span>
+            <span v-if="column === 'name'">
+              {{ `[${player.info.common_info[3]}]` + getActorName(player.info.common_info[2]) }}
+            </span>
             <span v-if="column === 'totalDamage'">
-              {{ player['totalDamage'][player['totalDamage'].length - 1].toLocaleString() }}
+              {{ getPlayerData(player, 'totalDamage') }}
+            </span>
+            <span v-if="column === 'totalDamagePerSecond'">
+              {{ getPlayerData(player, 'totalDamagePerSecond') }}
             </span>
             <span v-if="column === 'damageInSecond'">
-              {{ player['damageInSecond'][player['damageInSecond'].length - 1].toLocaleString() }}
+              {{ getPlayerData(player, 'damageInSecond') }}
+            </span>
+            <span v-if="column === 'damageInTenSecond'">
+              {{ getPlayerData(player, 'damageInTenSecond') }}
+            </span>
+            <span v-if="column === 'damageInTenSecondPerSecond'">
+              {{ getPlayerData(player, 'damageInTenSecondPerSecond') }}
             </span>
             <span v-if="column === 'damageInMinute'">
-              {{ player['damageInMinute'][player['damageInMinute'].length - 1].toLocaleString() }}
+              {{ getPlayerData(player, 'damageInMinute') }}
             </span>
             <span v-if="column === 'damageInMinutePerSecond'">
-              {{ player['damageInMinutePerSecond'][player['damageInMinutePerSecond'].length - 1].toLocaleString() }}
+              {{ getPlayerData(player, 'damageInMinutePerSecond') }}
             </span>
           </td>
         </template>
@@ -25,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-  import type { RecordState } from '@/store/record';
+  import { getPlayerData, getPlayerNumber, type RecordState } from '@/store/record';
   import { useSettingsStore } from '@/store/settings';
   import { useStyleTag } from '@vueuse/core';
   import { computed } from 'vue';
@@ -45,9 +56,9 @@
     result.sort((a, b) => {
       const rowOrderBy = settingsStore.damageStyle.rowOrderBy as ValidColumnKey;
       if (rowOrderBy === 'name') {
-        return a.index - b.index;
+        return b.info.common_info[3] - a.info.common_info[3];
       } else {
-        return b[rowOrderBy][b[rowOrderBy].length - 1] - a[rowOrderBy][a[rowOrderBy].length - 1];
+        return getPlayerNumber(b, rowOrderBy) - getPlayerNumber(a, rowOrderBy);
       }
     });
     if (settingsStore.damageStyle.rowOrder === 'asc') {

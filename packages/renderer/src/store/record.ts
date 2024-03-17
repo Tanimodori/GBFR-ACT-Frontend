@@ -1,4 +1,4 @@
-import type { WsMessage } from '@/types/wsMessage';
+import type { LoadPartyPlayer, WsMessage } from '@/types/wsMessage';
 import { defineStore } from 'pinia';
 import { useSettingsStore } from './settings';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,14 +19,18 @@ export interface PlayerActionState {
 }
 
 export interface PlayerState {
-  id: number;
-  index: number;
-  totalDamage: number[];
-  damageInSecond: number[];
-  damageInMinute: number[];
-  damageInMinutePerSecond: number[];
-  targets: PlayerTargetState[];
-  actions: PlayerActionState[];
+  info: LoadPartyPlayer;
+  stats: {
+    totalDamage: number[];
+    totalDamagePerSecond: number[];
+    damageInSecond: number[];
+    damageInTenSecond: number[];
+    damageInTenSecondPerSecond: number[];
+    damageInMinute: number[];
+    damageInMinutePerSecond: number[];
+    targets: PlayerTargetState[];
+    actions: PlayerActionState[];
+  };
 }
 
 export interface RecordState {
@@ -35,6 +39,7 @@ export interface RecordState {
   lastTimestamp: number;
   players: PlayerState[];
   messages: WsMessage[];
+  hasBattleMessage: boolean;
 }
 
 export const useRecordStore = defineStore('record', () => {
@@ -82,6 +87,7 @@ export const useRecordStore = defineStore('record', () => {
       lastTimestamp: timestamp,
       players: [],
       messages: [],
+      hasBattleMessage: false,
     });
     return records.value[records.value.length - 1];
   };
@@ -114,8 +120,7 @@ export const useRecordStore = defineStore('record', () => {
       }
       activeRecordId.value = record.id;
     }
-    // Temporary disable message logging
-    // record.messages.push(message);
+    record.messages.push(message);
     if (record.lastTimestamp < timestamp) {
       record.lastTimestamp = timestamp;
     }
@@ -123,10 +128,34 @@ export const useRecordStore = defineStore('record', () => {
     const lastFrame = Math.floor((record.lastTimestamp - record.startTimestamp) / 1000);
 
     // 2. Update players
-    if (message.type === 'damage') {
-      const { source, target, damage, flags: flags, action_id: actionId } = message.data;
-      const [_sourceType, _sourceIdx, sourceId, sourcePartyIdx] = source;
-      const [_targetType, _targetIdx, targetId, _targetPartyIdx] = target;
+    if (message.type === 'load_party') {
+      record.hasBattleMessage = true;
+      const players = message.data;
+      for (const player of players) {
+        if (!player) {
+          continue;
+        }
+        const playerState: PlayerState = {
+          info: player,
+          stats: {
+            totalDamage: new Array(lastFrame + 1).fill(0),
+            totalDamagePerSecond: new Array(lastFrame + 1).fill(0),
+            damageInSecond: new Array(lastFrame + 1).fill(0),
+            damageInTenSecond: new Array(lastFrame + 1).fill(0),
+            damageInTenSecondPerSecond: new Array(lastFrame + 1).fill(0),
+            damageInMinute: new Array(lastFrame + 1).fill(0),
+            damageInMinutePerSecond: new Array(lastFrame + 1).fill(0),
+            targets: [],
+            actions: [],
+          },
+        };
+        record.players[player.common_info[3]] = playerState;
+      }
+    } else if (message.type === 'damage') {
+      record.hasBattleMessage = true;
+      const { source: _source, target: _target, damage, flags: flags, action_id: actionId } = message.data;
+      const [_sourceType, _sourceIdx, _sourceId, sourcePartyIdx] = _source;
+      const [_targetType, _targetIdx, targetId, _targetPartyIdx] = _target;
 
       // 2.1 Filter out damage
       /**
@@ -143,16 +172,7 @@ export const useRecordStore = defineStore('record', () => {
 
       // 2.2 Find player
       if (!record.players[sourcePartyIdx]) {
-        record.players[sourcePartyIdx] = {
-          id: sourceId,
-          index: sourcePartyIdx,
-          totalDamage: [0],
-          damageInSecond: [0],
-          damageInMinute: [0],
-          damageInMinutePerSecond: [0],
-          targets: [],
-          actions: [],
-        };
+        console.error('Player not found', sourcePartyIdx, record.players);
       }
 
       // 2.3 Update frame
@@ -161,7 +181,7 @@ export const useRecordStore = defineStore('record', () => {
         if (!player) {
           continue;
         }
-        const startFrame = Math.min(frame, player.totalDamage.length);
+        const startFrame = Math.min(frame, player.stats.totalDamage.length);
         for (let frameIdx = startFrame; frameIdx <= lastFrame; frameIdx++) {
           let damageDelta = damage;
           if (frameIdx !== frame || partyIdx !== sourcePartyIdx) {
@@ -170,49 +190,69 @@ export const useRecordStore = defineStore('record', () => {
 
           // totalDamage
           let oldTotalDamage;
-          if (player.totalDamage[frameIdx] !== undefined) {
-            oldTotalDamage = player.totalDamage[frameIdx];
+          if (player.stats.totalDamage[frameIdx] !== undefined) {
+            oldTotalDamage = player.stats.totalDamage[frameIdx];
           } else {
             if (frameIdx > 0) {
-              oldTotalDamage = player.totalDamage[frameIdx - 1];
+              oldTotalDamage = player.stats.totalDamage[frameIdx - 1];
             } else {
               oldTotalDamage = 0;
             }
           }
-          player.totalDamage[frameIdx] = oldTotalDamage + damageDelta;
+          player.stats.totalDamage[frameIdx] = oldTotalDamage + damageDelta;
+
+          // totalDamagePerSecond
+          player.stats.totalDamagePerSecond[frameIdx] = Math.floor(player.stats.totalDamage[frameIdx] / (frameIdx + 1));
 
           // damageInSecond
-          player.damageInSecond[frameIdx] = (player.damageInSecond[frameIdx] ?? 0) + damageDelta;
+          player.stats.damageInSecond[frameIdx] = (player.stats.damageInSecond[frameIdx] ?? 0) + damageDelta;
+
+          // damageInTenSecond
+          let oldTotalDamageInTenSecond = 0;
+          if (frameIdx >= 10) {
+            oldTotalDamageInTenSecond = player.stats.totalDamage[frameIdx - 10];
+          }
+          player.stats.damageInTenSecond[frameIdx] = player.stats.totalDamage[frameIdx] - oldTotalDamageInTenSecond;
+
+          // damageInTenSecondPerSecond
+          const framesInTenSecond = Math.max(Math.min(frameIdx, 10), 1);
+          player.stats.damageInTenSecondPerSecond[frameIdx] = Math.floor(
+            player.stats.damageInTenSecond[frameIdx] / framesInTenSecond,
+          );
 
           // damageInMinute
           let oldTotalDamageInMinute = 0;
           if (frameIdx >= 60) {
-            oldTotalDamageInMinute = player.totalDamage[frameIdx - 60];
+            oldTotalDamageInMinute = player.stats.totalDamage[frameIdx - 60];
           }
-          player.damageInMinute[frameIdx] = player.totalDamage[frameIdx] - oldTotalDamageInMinute;
+          player.stats.damageInMinute[frameIdx] = player.stats.totalDamage[frameIdx] - oldTotalDamageInMinute;
 
           // damageInMinutePerSecond
-          const frames = Math.max(Math.min(frameIdx, 60), 1);
-          player.damageInMinutePerSecond[frameIdx] = Math.floor(player.damageInMinute[frameIdx] / frames);
+          const framesInMinute = Math.max(Math.min(frameIdx, 60), 1);
+          player.stats.damageInMinutePerSecond[frameIdx] = Math.floor(
+            player.stats.damageInMinute[frameIdx] / framesInMinute,
+          );
         }
       }
 
       // 2.4 Update player
       const player = record.players[sourcePartyIdx];
       // targets
-      const playerTarget = player.targets.find(target => target.id === targetId);
-      if (!playerTarget) {
-        player.targets.push({
+      const targets = player.stats.targets;
+      const target = targets.find(t => t.id === targetId);
+      if (!target) {
+        targets.push({
           id: targetId,
           damage: damage,
         });
       } else {
-        playerTarget.damage += damage;
+        target.damage += damage;
       }
       // actions
-      const playerAction = player.actions.find(action => action.id === correctActionId);
-      if (!playerAction) {
-        player.actions.push({
+      const actions = player.stats.actions;
+      const action = actions.find(a => a.id === correctActionId);
+      if (!action) {
+        actions.push({
           id: correctActionId,
           damage: damage,
           hits: 1,
@@ -220,10 +260,10 @@ export const useRecordStore = defineStore('record', () => {
           max: damage,
         });
       } else {
-        playerAction.damage += damage;
-        playerAction.hits += 1;
-        playerAction.min = Math.min(playerAction.min, damage);
-        playerAction.max = Math.max(playerAction.max, damage);
+        action.damage += damage;
+        action.hits += 1;
+        action.min = Math.min(action.min, damage);
+        action.max = Math.max(action.max, damage);
       }
     }
   };
@@ -240,3 +280,45 @@ export const useRecordStore = defineStore('record', () => {
     readyState,
   };
 });
+
+export const validPlayerNumberName = [
+  'totalDamage',
+  'totalDamagePerSecond',
+  'damageInSecond',
+  'damageInTenSecond',
+  'damageInTenSecondPerSecond',
+  'damageInMinute',
+  'damageInMinutePerSecond',
+] as const;
+export type ValidPlayerNumberName = (typeof validPlayerNumberName)[number];
+export const getPlayerNumbers = (player: PlayerState, seriesName: string): number[] => {
+  if (!validPlayerNumberName.includes(seriesName as ValidPlayerNumberName)) {
+    throw new Error('Invalid seriesName');
+  }
+  return player.stats[seriesName as ValidPlayerNumberName];
+};
+
+export const getPlayerNumber = (player: PlayerState, seriesName: string, frame = -1): number => {
+  const arr = getPlayerNumbers(player, seriesName);
+  frame = frame === -1 ? arr.length - 1 : frame;
+  return arr[frame];
+};
+
+export const validPlayerStringName = ['index', 'name', 'd_name', 'c_name', ...validPlayerNumberName] as const;
+export type ValidPlayerStringName = (typeof validPlayerStringName)[number];
+export const getPlayerData = <T extends PlayerState>(player: T, dataName: string, frame = -1): string => {
+  if (!validPlayerStringName.includes(dataName as ValidPlayerStringName)) {
+    throw new Error('Invalid dataName');
+  }
+  if (dataName === 'index') {
+    return player.info.common_info[3].toString();
+  } else if (dataName === 'name') {
+    return player.info.common_info[0].toString();
+  } else if (dataName === 'd_name') {
+    return player.info.d_name;
+  } else if (dataName === 'c_name') {
+    return player.info.c_name;
+  } else {
+    return getPlayerNumber(player, dataName, frame).toLocaleString();
+  }
+};

@@ -1,9 +1,9 @@
-export type EnterAreaMessage = {
+export interface EnterAreaMessage {
   time_ms: number;
   type: 'enter_area';
-};
+}
 
-export type DamageMessage = {
+export interface DamageMessage {
   time_ms: number;
   type: 'damage';
   data: {
@@ -15,9 +15,9 @@ export type DamageMessage = {
     damage: number;
     flags: number;
   };
-};
+}
 
-export type LoadPartyWeapon = {
+export interface LoadPartyWeapon {
   weapon_id: number;
   skill1: number;
   skill1_lv: number;
@@ -26,18 +26,18 @@ export type LoadPartyWeapon = {
   skill3: number;
   skill3_lv: number;
   bless_item: number;
-};
+}
 
-export type LoadPartySigil = {
+export interface LoadPartySigil {
   first_trait_id: number;
   first_trait_level: number;
   second_trait_id: number;
   second_trait_level: number;
   sigil_id: number;
   sigil_level: number;
-};
+}
 
-export type LoadPartyPlayer = {
+export interface LoadPartyPlayer {
   weapon: LoadPartyWeapon;
   sigils: LoadPartySigil[];
   /** 0 or 1 */
@@ -48,11 +48,12 @@ export type LoadPartyPlayer = {
   d_name: string;
   /** [name, id, hash, index] */
   common_info: [string, number, number, number];
-};
+}
 
-export type LoadPartyMessage = {
+export interface LoadPartyMessage {
   time_ms: number;
   type: 'load_party';
-};
+  data: Array<LoadPartyPlayer | null>;
+}
 
 export type WsMessage = EnterAreaMessage | DamageMessage | LoadPartyMessage;

@@ -1,9 +1,9 @@
 <template>
   <div>
     <a-table :columns="columns" :data-source="rows" size="small" :pagination="false">
-      <template #bodyCell="{ column, record }">
+      <template #bodyCell="{ column, record: row }">
         <template v-if="column.key === 'detail'">
-          <a-button type="link" @click="showDetail(record.key)">
+          <a-button type="link" @click="showDetail(row.key)">
             <MoniterOutlined class="anticon" />
           </a-button>
         </template>
@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { type RecordState } from '@/store/record';
+  import { getPlayerNumber, type RecordState } from '@/store/record';
   import { getActorName } from '@/utils/enums';
   import type { TableColumnType } from 'ant-design-vue';
   import { computed, ref } from 'vue';
@@ -41,8 +41,11 @@
     key: number;
     name: string;
     totalDamage: number;
-    damageInMinute: number;
+    totalDamagePerSecond: number;
     damageInSecond: number;
+    damageInTenSecond: number;
+    damageInTenSecondPerSecond: number;
+    damageInMinute: number;
     damageInMinutePerSecond: number;
   }
 
@@ -51,14 +54,19 @@
     for (let i = 0; i < props.record.players.length; i++) {
       const player = props.record.players[i];
       if (!player) continue;
-      const frame = player.totalDamage.length - 1;
+      const frame = player.stats.totalDamage.length - 1;
+      const id = player.info.common_info[2];
+      const index = player.info.common_info[3];
       rows.push({
-        key: player.index,
-        name: `[${player.index}]` + getActorName(player.id),
-        totalDamage: player.totalDamage[frame],
-        damageInMinute: player.damageInMinute[frame],
-        damageInSecond: player.damageInSecond[frame],
-        damageInMinutePerSecond: player.damageInMinutePerSecond[frame],
+        key: index,
+        name: `[${index}]` + getActorName(id),
+        totalDamage: getPlayerNumber(player, 'totalDamage', frame),
+        totalDamagePerSecond: getPlayerNumber(player, 'totalDamagePerSecond', frame),
+        damageInSecond: getPlayerNumber(player, 'damageInSecond', frame),
+        damageInTenSecond: getPlayerNumber(player, 'damageInTenSecond', frame),
+        damageInTenSecondPerSecond: getPlayerNumber(player, 'damageInTenSecondPerSecond', frame),
+        damageInMinute: getPlayerNumber(player, 'damageInMinute', frame),
+        damageInMinutePerSecond: getPlayerNumber(player, 'damageInMinutePerSecond', frame),
       });
     }
     return rows;
@@ -69,7 +77,7 @@
     for (let i = 0; i < props.record.players.length; i++) {
       const player = props.record.players[i];
       if (!player) continue;
-      result += player.totalDamage[player.totalDamage.length - 1];
+      result += player.stats.totalDamage[player.stats.totalDamage.length - 1];
     }
     return result;
   });
@@ -96,10 +104,10 @@
       align: 'right',
     },
     {
-      title: t('statsTable.damageInMinute'),
-      dataIndex: 'damageInMinute',
-      key: 'damageInMinute',
-      sorter: (a, b) => a.damageInMinute - b.damageInMinute,
+      title: t('statsTable.totalDamagePerSecond'),
+      dataIndex: 'totalDamagePerSecond',
+      key: 'totalDamagePerSecond',
+      sorter: (a, b) => a.totalDamagePerSecond - b.totalDamagePerSecond,
       sortDirections: ['descend', 'ascend'],
       customRender: ({ text }) => Number(text).toLocaleString(),
       align: 'right',
@@ -109,6 +117,33 @@
       dataIndex: 'damageInSecond',
       key: 'damageInSecond',
       sorter: (a, b) => a.damageInSecond - b.damageInSecond,
+      sortDirections: ['descend', 'ascend'],
+      customRender: ({ text }) => Number(text).toLocaleString(),
+      align: 'right',
+    },
+    {
+      title: t('statsTable.damageInTenSecond'),
+      dataIndex: 'damageInTenSecond',
+      key: 'damageInTenSecond',
+      sorter: (a, b) => a.damageInTenSecond - b.damageInTenSecond,
+      sortDirections: ['descend', 'ascend'],
+      customRender: ({ text }) => Number(text).toLocaleString(),
+      align: 'right',
+    },
+    {
+      title: t('statsTable.damageInTenSecondPerSecond'),
+      dataIndex: 'damageInTenSecondPerSecond',
+      key: 'damageInTenSecondPerSecond',
+      sorter: (a, b) => a.damageInTenSecondPerSecond - b.damageInTenSecondPerSecond,
+      sortDirections: ['descend', 'ascend'],
+      customRender: ({ text }) => Number(text).toLocaleString(),
+      align: 'right',
+    },
+    {
+      title: t('statsTable.damageInMinute'),
+      dataIndex: 'damageInMinute',
+      key: 'damageInMinute',
+      sorter: (a, b) => a.damageInMinute - b.damageInMinute,
       sortDirections: ['descend', 'ascend'],
       customRender: ({ text }) => Number(text).toLocaleString(),
       align: 'right',

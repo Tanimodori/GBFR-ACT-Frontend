@@ -2,7 +2,7 @@
   <div class="chart-wrapper">
     <a-form :label-col="{ span: 4 }" :wrapper-col="{ span: 16 }" layout="horizontal">
       <a-form-item name="anchorVertical" :label="$t('statsTable.seriesName')">
-        <a-segmented v-model:value="seriesName" :options="seriesNameData" />
+        <a-select v-model:value="seriesName" :options="seriesNameData" />
       </a-form-item>
     </a-form>
     <v-chart :option="option" class="chart" autoresize />
@@ -16,7 +16,7 @@
   import { TooltipComponent, LegendComponent, GridComponent } from 'echarts/components';
   import VChart from 'vue-echarts';
   import { computed, ref, watch, reactive } from 'vue';
-  import type { RecordState } from '@/store/record';
+  import { getPlayerNumbers, type RecordState } from '@/store/record';
   import dayjs from '@/utils/dayjs';
   import { getActorName } from '@/utils/enums';
   import { useSettingsStore } from '@/store/settings';
@@ -40,8 +40,11 @@
   });
   const seriesNameData = reactive([
     { label: t('statsTable.totalDamage'), value: 'totalDamage' as const },
-    { label: t('statsTable.damageInMinute'), value: 'damageInMinute' as const },
+    { label: t('statsTable.totalDamagePerSecond'), value: 'totalDamagePerSecond' as const },
     { label: t('statsTable.damageInSecond'), value: 'damageInSecond' as const },
+    { label: t('statsTable.damageInTenSecond'), value: 'damageInTenSecond' as const },
+    { label: t('statsTable.damageInTenSecondPerSecond'), value: 'damageInTenSecondPerSecond' as const },
+    { label: t('statsTable.damageInMinute'), value: 'damageInMinute' as const },
     { label: t('statsTable.damageInMinutePerSecond'), value: 'damageInMinutePerSecond' as const },
   ]);
 
@@ -53,14 +56,16 @@
     for (let i = 0; i < props.record.players.length; i++) {
       const player = props.record.players[i];
       if (player) {
-        legendData.push(`[${player.index}]` + getActorName(player.id));
+        const id = player.info.common_info[2];
+        const index = player.info.common_info[3];
+        legendData.push(`[${index}]` + getActorName(id));
         series.push({
-          name: `[${player.index}]` + getActorName(player.id),
+          name: `[${index}]` + getActorName(id),
           type: 'line',
-          data: player[seriesName.value],
+          data: getPlayerNumbers(player, seriesName.value),
           showAllSymbol: false,
         });
-        xAxisData = player.damageInMinutePerSecond.map((_, i) => i);
+        xAxisData = player.stats.totalDamage.map((_, i) => i);
       }
     }
 

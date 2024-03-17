@@ -21,8 +21,8 @@
 
   const rows = computed(() => {
     const rows: StatsDetailTargetTableRow[] = [];
-    for (let i = 0; i < props.player.targets.length; i++) {
-      const target = props.player.targets[i];
+    for (let i = 0; i < props.player.stats.targets.length; i++) {
+      const target = props.player.stats.targets[i];
       if (!target) continue;
       rows.push({
         key: target.id,

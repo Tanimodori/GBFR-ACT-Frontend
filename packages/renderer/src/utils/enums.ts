@@ -38,7 +38,10 @@ export const getEnemyName = (id: number) => {
 export const validColumnKey = [
   'name',
   'totalDamage',
+  'totalDamagePerSecond',
   'damageInSecond',
+  'damageInTenSecond',
+  'damageInTenSecondPerSecond',
   'damageInMinute',
   'damageInMinutePerSecond',
 ] as const;

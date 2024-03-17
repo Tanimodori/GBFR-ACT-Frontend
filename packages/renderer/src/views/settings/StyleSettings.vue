@@ -42,7 +42,7 @@
       <a-input v-model:value="state.colOrder" @blur="validate('colOrder')" />
     </a-form-item>
     <a-form-item name="rowOrderBy" :label="$t('settings.style.rowOrderBy')" v-bind="validateInfos.rowOrderBy">
-      <a-segmented v-model:value="state.rowOrderBy" :options="rowOrderByData" />
+      <a-select v-model:value="state.rowOrderBy" :options="rowOrderByData" />
     </a-form-item>
     <a-form-item name="rowOrder" :label="$t('settings.style.rowOrder')" v-bind="validateInfos.rowOrder">
       <a-segmented v-model:value="state.rowOrder" :options="rowOrderData" />
@@ -79,8 +79,11 @@
   const rowOrderByData = reactive([
     { label: t('statsTable.name'), value: 'name' },
     { label: t('statsTable.totalDamage'), value: 'totalDamage' },
-    { label: t('statsTable.damageInMinute'), value: 'damageInMinute' },
+    { label: t('statsTable.totalDamagePerSecond'), value: 'totalDamagePerSecond' },
     { label: t('statsTable.damageInSecond'), value: 'damageInSecond' },
+    { label: t('statsTable.damageInTenSecond'), value: 'damageInTenSecond' },
+    { label: t('statsTable.damageInTenSecondPerSecond'), value: 'damageInTenSecondPerSecond' },
+    { label: t('statsTable.damageInMinute'), value: 'damageInMinute' },
     { label: t('statsTable.damageInMinutePerSecond'), value: 'damageInMinutePerSecond' },
   ]);
   const rowOrderData = reactive([
