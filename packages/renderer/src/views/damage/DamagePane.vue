@@ -109,7 +109,10 @@
       }
 
       &.totalDamage,
+      &.totalDamagePerSecond,
       &.damageInSecond,
+      &.damageInTenSecond,
+      &.damageInTenSecondPerSecond,
       &.damageInMinute,
       &.damageInMinutePerSecond {
         text-align: right;
