@@ -5,7 +5,7 @@
     </div>
   </template>
   <template v-else>
-    <a-tabs v-model:activeKey="activeKey" type="editable-card" hide-add @edit="onEdit">
+    <a-tabs v-model:activeKey="activeKey" type="editable-card" hide-add @edit="onEdit" @tab-click="onTabClick">
       <template #leftExtra>
         <div class="tabLeft"></div>
       </template>
@@ -27,9 +27,12 @@
   import { type RecordState, useRecordStore } from '@/store/record';
   import StatsPane from './StatsPane.vue';
   const activeKey = ref('');
+  const mannualSelect = ref(false);
   const recordStore = useRecordStore();
 
-  const validRecords = computed(() => recordStore.records.filter(record => record.hasBattleMessage));
+  const validRecords = computed(() =>
+    recordStore.records.filter(record => record.hasBattleMessage || record.id === recordStore.activeRecordId),
+  );
 
   const getTabName = (record: RecordState) => {
     const startTime = dayjs(record.startTimestamp).format('HH:mm:ss');
@@ -37,13 +40,21 @@
     return `${startTime}[${duration}]`;
   };
 
+  const onTabClick = (key: string) => {
+    if (recordStore.activeRecordId === key) {
+      mannualSelect.value = false;
+    } else {
+      mannualSelect.value = true;
+    }
+  };
+
   // Auto select active tab
   const autoSelectActiveTab = () => {
-    if (activeKey.value === '' && recordStore.activeRecordId !== '') {
+    if (!mannualSelect.value && recordStore.activeRecordId !== '') {
       activeKey.value = recordStore.activeRecordId;
     }
   };
-  watch([activeKey, () => recordStore.activeRecordId], autoSelectActiveTab);
+  watch([() => recordStore.activeRecordId], autoSelectActiveTab);
   onMounted(autoSelectActiveTab);
   onActivated(autoSelectActiveTab);
 
