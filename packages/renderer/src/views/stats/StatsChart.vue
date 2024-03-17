@@ -18,7 +18,7 @@
   import { LineChart } from 'echarts/charts';
   import { TooltipComponent, LegendComponent, GridComponent } from 'echarts/components';
   import VChart from 'vue-echarts';
-  import { computed, ref, watch, reactive } from 'vue';
+  import { computed, ref, watch } from 'vue';
   import { getPlayerNumbers, type RecordState } from '@/store/record';
   import dayjs from '@/utils/dayjs';
   import { getActorName } from '@/utils/enums';
@@ -45,7 +45,7 @@
   watch(columnFilter, value => {
     settingsStore.statsTable.columnFilter = value;
   });
-  const seriesNameData = reactive([
+  const seriesNameData = computed(() => [
     { label: t('statsTable.totalDamage'), value: 'totalDamage' as const },
     { label: t('statsTable.totalDamagePerSecond'), value: 'totalDamagePerSecond' as const },
     { label: t('statsTable.damageInSecond'), value: 'damageInSecond' as const },
@@ -55,7 +55,10 @@
     { label: t('statsTable.damageInMinutePerSecond'), value: 'damageInMinutePerSecond' as const },
   ]);
 
-  const columnFilterNameData = reactive([{ label: t('statsTable.name'), value: 'name' as const }, ...seriesNameData]);
+  const columnFilterNameData = computed(() => [
+    { label: t('statsTable.name'), value: 'name' as const },
+    ...seriesNameData.value,
+  ]);
 
   const option = computed(() => {
     const legendData: string[] = [];

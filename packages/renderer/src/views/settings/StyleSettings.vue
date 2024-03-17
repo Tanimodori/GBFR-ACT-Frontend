@@ -53,7 +53,7 @@
 <script setup lang="ts">
   import DamageDemo from './DamageDemo.vue';
   import { useSettingsStore } from '@/store/settings';
-  import { reactive } from 'vue';
+  import { computed, reactive } from 'vue';
   import { Form } from 'ant-design-vue';
   import { useI18n } from 'vue-i18n';
   const useForm = Form.useForm;
@@ -76,7 +76,7 @@
   type StateKey = keyof typeof state;
 
   const { t } = useI18n();
-  const rowOrderByData = reactive([
+  const rowOrderByData = computed(() => [
     { label: t('statsTable.name'), value: 'name' },
     { label: t('statsTable.totalDamage'), value: 'totalDamage' },
     { label: t('statsTable.totalDamagePerSecond'), value: 'totalDamagePerSecond' },
@@ -86,11 +86,11 @@
     { label: t('statsTable.damageInMinute'), value: 'damageInMinute' },
     { label: t('statsTable.damageInMinutePerSecond'), value: 'damageInMinutePerSecond' },
   ]);
-  const rowOrderData = reactive([
+  const rowOrderData = computed(() => [
     { label: t('settings.style.asc'), value: 'asc' },
     { label: t('settings.style.desc'), value: 'desc' },
   ]);
-  const rules = reactive({
+  const rules = computed(() => ({
     bgColor: [{ required: true, message: t('error.valueRequired') }],
     bgCornerSize: [{ required: true, message: t('error.valueRequired') }],
     bgPadding: [{ required: true, message: t('error.valueRequired') }],
@@ -103,7 +103,7 @@
     colOrder: [{ required: true, message: t('error.valueRequired') }],
     rowOrderBy: [{ required: true, message: t('error.valueRequired') }],
     rowOrder: [{ required: true, message: t('error.valueRequired') }],
-  });
+  }));
 
   const { validate, validateInfos } = useForm(state, rules, {
     onValidate: (name, status) => {

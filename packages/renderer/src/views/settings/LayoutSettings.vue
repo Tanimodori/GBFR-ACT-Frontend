@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
   import { useSettingsStore } from '@/store/settings';
-  import { reactive } from 'vue';
+  import { computed, reactive } from 'vue';
   import { Form } from 'ant-design-vue';
   import { useI18n } from 'vue-i18n';
   const useForm = Form.useForm;
@@ -40,18 +40,18 @@
   type StateKey = keyof typeof state;
 
   const { t } = useI18n();
-  const anchorVerticalData = reactive([
+  const anchorVerticalData = computed(() => [
     { label: t('settings.layout.top'), value: 'top' },
     { label: t('settings.layout.center'), value: 'center' },
     { label: t('settings.layout.bottom'), value: 'bottom' },
   ]);
-  const anchorHorizontalData = reactive([
+  const anchorHorizontalData = computed(() => [
     { label: t('settings.layout.left'), value: 'left' },
     { label: t('settings.layout.center'), value: 'center' },
     { label: t('settings.layout.right'), value: 'right' },
   ]);
 
-  const rules = reactive({
+  const rules = computed(() => ({
     x: [
       { required: true, message: t('error.valueRequired') },
       { type: 'number', message: t('error.valueNumber'), transform: Number },
@@ -62,7 +62,7 @@
     ],
     anchorVertical: [{ required: true, message: t('error.valueRequired') }],
     anchorHorizontal: [{ required: true, message: t('error.valueRequired') }],
-  });
+  }));
 
   const { validate, validateInfos } = useForm(state, rules, {
     onValidate: (name, status) => {
