@@ -65,6 +65,13 @@ export const useSettingsStore = defineStore(
 
     const statsTable = ref({
       seriesName: 'damageInMinutePerSecond' as Exclude<ValidColumnKey, 'name'>,
+      columnFilter: [
+        'name',
+        'totalDamage',
+        'totalDamagePerSecond',
+        'damageInTenSecond',
+        'damageInTenSecondPerSecond',
+      ] as ValidColumnKey[],
     });
 
     return {

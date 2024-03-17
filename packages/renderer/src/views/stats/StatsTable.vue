@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-table :columns="columns" :data-source="rows" size="small" :pagination="false">
+    <a-table :columns="currentColumns" :data-source="rows" size="small" :pagination="false">
       <template #bodyCell="{ column, record: row }">
         <template v-if="column.key === 'detail'">
           <a-button type="link" @click="showDetail(row.key)">
@@ -23,13 +23,14 @@
 
 <script lang="ts" setup>
   import { getPlayerNumber, type RecordState } from '@/store/record';
-  import { getActorName } from '@/utils/enums';
+  import { getActorName, type ValidColumnKey } from '@/utils/enums';
   import type { TableColumnType } from 'ant-design-vue';
   import { computed, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
   import MoniterOutlined from '~icons/ant-design/monitor-outlined';
   import StatsDetail from './StatsDetail.vue';
   import { onUnmounted } from 'vue';
+  import { useSettingsStore } from '@/store/settings';
 
   const { t } = useI18n();
 
@@ -162,6 +163,12 @@
       key: 'detail',
     },
   ];
+
+  const settingsStore = useSettingsStore();
+  const currentColumns = computed(() => {
+    const columnFilter = settingsStore.statsTable.columnFilter;
+    return columns.filter(column => columnFilter.includes(column.key as ValidColumnKey) || column.key === 'detail');
+  });
 
   const open = ref(false);
   const currentKey = ref(0);

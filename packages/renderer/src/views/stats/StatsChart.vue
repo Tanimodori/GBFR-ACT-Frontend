@@ -1,6 +1,9 @@
 <template>
   <div class="chart-wrapper">
     <a-form :label-col="{ span: 4 }" :wrapper-col="{ span: 16 }" layout="horizontal">
+      <a-form-item name="anchorVertical" :label="$t('statsTable.columnFilter')">
+        <a-select v-model:value="columnFilter" :options="columnFilterNameData" mode="multiple" />
+      </a-form-item>
       <a-form-item name="anchorVertical" :label="$t('statsTable.seriesName')">
         <a-select v-model:value="seriesName" :options="seriesNameData" />
       </a-form-item>
@@ -34,9 +37,13 @@
 
   const { t } = useI18n();
   const settingsStore = useSettingsStore();
+  const columnFilter = ref(settingsStore.statsTable.columnFilter);
   const seriesName = ref(settingsStore.statsTable.seriesName);
   watch(seriesName, value => {
     settingsStore.statsTable.seriesName = value;
+  });
+  watch(columnFilter, value => {
+    settingsStore.statsTable.columnFilter = value;
   });
   const seriesNameData = reactive([
     { label: t('statsTable.totalDamage'), value: 'totalDamage' as const },
@@ -47,6 +54,8 @@
     { label: t('statsTable.damageInMinute'), value: 'damageInMinute' as const },
     { label: t('statsTable.damageInMinutePerSecond'), value: 'damageInMinutePerSecond' as const },
   ]);
+
+  const columnFilterNameData = reactive([{ label: t('statsTable.name'), value: 'name' as const }, ...seriesNameData]);
 
   const option = computed(() => {
     const legendData: string[] = [];

@@ -18,7 +18,8 @@
     "min": "min",
     "max": "max",
     "avg": "avg",
-    "seriesName": "Column"
+    "seriesName": "Displayed Column",
+    "columnFilter": "Filter Column"
   },
   "settings": {
     "locale": {

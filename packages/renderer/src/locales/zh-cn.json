@@ -18,7 +18,8 @@
     "min": "最小值",
     "max": "最大值",
     "avg": "平均值",
-    "seriesName": "列"
+    "seriesName": "展示数据",
+    "columnFilter": "筛选列"
   },
   "settings": {
     "locale": {
