@@ -1,7 +1,7 @@
 import { createI18n } from 'vue-i18n';
-import en_US from './en_US.json';
-import zh_CN from './zh_CN.json';
-import zh_TW from './zh_TW.json';
+import en_US from './en-us.json';
+import zh_CN from './zh-cn.json';
+import zh_TW from './zh-tw.json';
 
 const messages = {
   en_US,

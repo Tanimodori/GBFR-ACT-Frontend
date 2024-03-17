@@ -1,5 +1,5 @@
 import i18n from '@/locales';
-import en_US from '@/locales/en_US.json';
+import en_US from '@/locales/en-us.json';
 
 export type ActorKey = keyof typeof en_US.actors;
 
