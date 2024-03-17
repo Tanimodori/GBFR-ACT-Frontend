@@ -28,7 +28,7 @@
     for (let i = 0; i < props.player.stats.actions.length; i++) {
       const action = props.player.stats.actions[i];
       if (!action) continue;
-      const id = props.player.info.common_info[3];
+      const id = props.player.info.common_info[2];
       rows.push({
         key: action.id,
         name: getActionName(id, action.id),
