@@ -10,12 +10,12 @@
         <div class="tabLeft"></div>
       </template>
       <a-tab-pane
-        v-for="i in recordStore.records.length"
-        :key="recordStore.records[i - 1].id"
-        :tab="getTabName(recordStore.records[i - 1])"
+        v-for="i in validRecords.length"
+        :key="validRecords[i - 1].id"
+        :tab="getTabName(validRecords[i - 1])"
         :closable="true"
       >
-        <StatsPane :record="recordStore.records[i - 1]" />
+        <StatsPane :record="validRecords[i - 1]" />
       </a-tab-pane>
     </a-tabs>
   </template>
@@ -23,11 +23,13 @@
 
 <script lang="ts" setup>
   import dayjs from '@/utils/dayjs';
-  import { ref, watch, onActivated, onMounted } from 'vue';
+  import { ref, watch, onActivated, onMounted, computed } from 'vue';
   import { type RecordState, useRecordStore } from '@/store/record';
   import StatsPane from './StatsPane.vue';
   const activeKey = ref('');
   const recordStore = useRecordStore();
+
+  const validRecords = computed(() => recordStore.records.filter(record => record.hasBattleMessage));
 
   const getTabName = (record: RecordState) => {
     const startTime = dayjs(record.startTimestamp).format('HH:mm:ss');
