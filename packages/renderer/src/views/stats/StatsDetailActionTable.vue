@@ -92,6 +92,7 @@
       sorter: (a, b) => a.min - b.min,
       sortDirections: ['descend', 'ascend'],
       align: 'right',
+      customRender: ({ text }) => Number(text).toLocaleString(),
     },
     {
       title: t('statsTable.max'),
@@ -100,6 +101,7 @@
       sorter: (a, b) => a.max - b.max,
       sortDirections: ['descend', 'ascend'],
       align: 'right',
+      customRender: ({ text }) => Number(text).toLocaleString(),
     },
     {
       title: t('statsTable.avg'),
@@ -108,6 +110,7 @@
       sorter: (a, b) => a.avg - b.avg,
       sortDirections: ['descend', 'ascend'],
       align: 'right',
+      customRender: ({ text }) => Number(text).toLocaleString(),
     },
   ];
 </script>
